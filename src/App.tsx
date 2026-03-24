@@ -1,4 +1,3 @@
-import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LoginForm } from '@/components/login-form'
 import { SignUpForm } from '@/components/sign-up-form'
