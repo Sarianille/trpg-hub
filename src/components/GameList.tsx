@@ -8,21 +8,46 @@ export function GameList() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    let subscription: ReturnType<typeof supabase.channel> | null = null
+
     const fetchGames = async () => {
-      setIsLoading(true)
-      setError(null)
+      try {
+        setIsLoading(true)
+        setError(null)
 
-      const { data, error } = await supabase.from('games').select('*')
+        const { data, error } = await supabase.from('games').select('*')
 
-      if (error) {
-        setError(error.message)
-      } else {
-        setGames(data)
+        if (error) {
+          throw error
+        } else {
+          setGames(data)
+        }
+      } catch (error: unknown) {
+        setError(error instanceof Error ? error.message : 'An error occurred')
+      } finally {
+        setIsLoading(false)
       }
-      setIsLoading(false)
     }
 
-    fetchGames()
+    const setup = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session) supabase.realtime.setAuth(session.access_token)
+      
+        await fetchGames()
+
+        subscription = supabase
+          .channel('public:games')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchGames())
+          .subscribe()
+      } catch (error: unknown) {
+        setError(error instanceof Error ? error.message : 'An error occurred')
+      }
+    }
+    
+    setup()
+
+    return () => { if (subscription) supabase.removeChannel(subscription) }
   }, [])
 
   const deleteGame = async (id: string) => {
