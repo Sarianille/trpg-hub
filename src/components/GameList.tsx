@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/client"
 import type { Game } from "@/types"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 
 export function GameList() {
   const [games, setGames] = useState<Game[]>([])
@@ -63,15 +65,21 @@ export function GameList() {
   }
 
   return (
-  <div>
+  <div className="flex flex-col gap-2 w-full items-center">
     {!isInitialized && <p>Loading games...</p>}
     {error && <p className="text-sm text-red-500">{error}</p>}
     {isInitialized && games.length === 0 && <p>No games yet. Add one above!</p>}
     {games.map((game) => (
-      <div key={game.id}>
-        {game.my_character} x {game.other_characters.join(', ')}
-        <button onClick={() => deleteGame(game.id)}>x</button>
-      </div>
+      <Card className="w-5/6 md:w-100" key={game.id}>
+        <CardHeader>
+          <CardTitle>
+            {game.my_character} x {game.other_characters.join(', ')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Button onClick={() => deleteGame(game.id)} className="w-full">Finish game</Button>
+        </CardContent>
+      </Card>
     ))}
   </div>
   )
