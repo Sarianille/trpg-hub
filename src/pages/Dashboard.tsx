@@ -17,6 +17,7 @@ export default function Dashboard() {
     <div>
       <div>
         <AddGameForm />
+        <GameList />
       </div>
     </div>
   )
