@@ -5,14 +5,13 @@ import type { Game } from "@/types"
 export function GameList() {
   const [games, setGames] = useState<Game[]>([])
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
     let subscription: ReturnType<typeof supabase.channel> | null = null
 
     const fetchGames = async () => {
       try {
-        setIsLoading(true)
         setError(null)
 
         const { data, error } = await supabase.from('games').select('*')
@@ -25,7 +24,7 @@ export function GameList() {
       } catch (error: unknown) {
         setError(error instanceof Error ? error.message : 'An error occurred')
       } finally {
-        setIsLoading(false)
+        setIsInitialized(true)
       }
     }
 
@@ -65,9 +64,9 @@ export function GameList() {
 
   return (
   <div>
-    {isLoading && <p>Loading games...</p>}
+    {!isInitialized && <p>Loading games...</p>}
     {error && <p className="text-sm text-red-500">{error}</p>}
-    {!isLoading && games.length === 0 && <p>No games yet. Add one above!</p>}
+    {isInitialized && games.length === 0 && <p>No games yet. Add one above!</p>}
     {games.map((game) => (
       <div key={game.id}>
         {game.my_character} x {game.other_characters.join(', ')}
