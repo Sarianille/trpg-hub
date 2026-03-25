@@ -1,15 +1,23 @@
 import { useEffect } from 'react'
-import { createClient } from '@/lib/client'
+import { supabase } from '@/lib/client'
+import { Navbar } from '@/components/Navbar'
+import { AddGameForm } from '@/components/AddGameForm'
+import { GameList } from '@/components/GameList'
 
 export default function Dashboard() {
   useEffect(() => {
     const checkAuth = async () => {
-      const supabase = createClient()
       const { error } = await supabase.auth.getUser()
       if (error) location.href = '/login'
     }
     checkAuth()
   }, [])
 
-  return <div>Home</div>
+  return (
+    <div>
+      <div>
+        <AddGameForm />
+      </div>
+    </div>
+  )
 }
