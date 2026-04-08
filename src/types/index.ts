@@ -5,4 +5,6 @@ export type Game = {
     other_characters: string[]
     is_my_turn: boolean
     updated_at: string
+    tag: string | null
+    posts_written_by_me: number
 }
