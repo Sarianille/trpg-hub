@@ -90,7 +90,7 @@ export function GameList() {
   const gamesWaitingForOthers = games.filter(game => !game.is_my_turn)
 
   return (
-  <div className="flex flex-col gap-2 w-full items-center">
+  <Card className="flex flex-col gap-2 w-full items-center">
     {!isInitialized && <p>Loading games...</p>}
     {error && <p className="text-sm text-red-500">{error}</p>}
     {isInitialized && games.length === 0 && <p>No games yet. Add one above!</p>}
@@ -98,7 +98,7 @@ export function GameList() {
       <div className="flex flex-col gap-2 w-full items-center">
         <h2 className="text-lg font-semibold mb-2">Your turn</h2>
         {gamesWaitingForMe.map((game) => (
-          <Card className="w-5/6 md:w-100" key={game.id}>
+          <Card className="w-5/6" key={game.id}>
             <CardHeader>
               <CardTitle>
                 {game.my_character} x {game.other_characters.join(', ')}
@@ -115,7 +115,7 @@ export function GameList() {
       <div className="flex flex-col gap-2 w-full items-center">
         <h2 className="text-lg font-semibold mb-2">Waiting for others</h2>
         {gamesWaitingForOthers.map((game) => (
-          <Card className="w-5/6 md:w-100" key={game.id}>
+          <Card className="w-5/6" key={game.id}>
             <CardHeader>
               <CardTitle>
                 {game.my_character} x {game.other_characters.join(', ')}
@@ -130,6 +130,6 @@ export function GameList() {
         ))}
       </div>
     </div>
-  </div>
+  </Card>
   )
 }
