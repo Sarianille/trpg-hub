@@ -90,11 +90,11 @@ export function GameList() {
   const gamesWaitingForOthers = games.filter(game => !game.is_my_turn)
 
   return (
-  <Card className="flex flex-col gap-2 w-full items-center">
+  <Card className="flex flex-col gap-2 w-3/4 items-center">
     {!isInitialized && <p>Loading games...</p>}
     {error && <p className="text-sm text-red-500">{error}</p>}
     {isInitialized && games.length === 0 && <p>No games yet. Add one above!</p>}
-    <div className="flex flex-col md:flex-row gap-4 w-full items-start">
+    <div className="flex flex-col md:flex-row gap-2 w-full items-start">
       <div className="flex flex-col gap-2 w-full items-center">
         <h2 className="text-lg font-semibold mb-2">Your turn</h2>
         {gamesWaitingForMe.map((game) => (
