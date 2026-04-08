@@ -4,4 +4,5 @@ export type Game = {
     my_character: string
     other_characters: string[]
     is_my_turn: boolean
+    updated_at: string
 }
