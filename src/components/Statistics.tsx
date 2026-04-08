@@ -6,14 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 export function Statistics() {
   const [stats, setStats] = useState<Game[]>([])
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isInitialized, setIsInitialized] = useState(false)
       
   useEffect(() => {
     let subscription: ReturnType<typeof supabase.channel> | null = null
 
     const fetchStats = async () => {
       try {
-        setIsLoading(true)
         setError(null)
 
         const { data, error } = await supabase.from('games').select('*')
@@ -26,7 +25,7 @@ export function Statistics() {
       } catch (error: unknown) {
         setError(error instanceof Error ? error.message : 'An error occurred')
       } finally {
-        setIsLoading(false)
+        setIsInitialized(true)
       }
     }
 
@@ -61,32 +60,36 @@ export function Statistics() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {isLoading && 'Loading statistics...'}
+        {!isInitialized && 'Loading statistics...'}
         {error && <p className="text-sm text-red-500">{error}</p>}
-        <p>{stats.length} active game(s)</p>
-        <div className="text-sm text-muted-foreground ml-2">
-          {tags.map(tag => (
-            <p key={tag}>{tag}: {stats.filter(s => s.tag === tag).length} active game(s)</p>
-          ))}
-        </div>
-        <p>{stats.reduce((sum, stat) => sum + stat.posts_written_by_me, 0)} post(s) written</p>
-        <div className="text-sm text-muted-foreground ml-2">
-          {tags.map(tag => (
-            <p key={tag}>{tag}: {stats.filter(s => s.tag === tag).reduce((sum, stat) => sum + stat.posts_written_by_me, 0)} post(s) written</p>
-          ))}
-        </div>
-        <p>{stats.filter(stat => stat.is_my_turn).length} game(s) waiting for me</p>
-        <div className="text-sm text-muted-foreground ml-2">
-          {tags.map(tag => (
-            <p key={tag}>{tag}: {stats.filter(s => s.tag === tag && s.is_my_turn).length} game(s) waiting for me</p>
-          ))}
-        </div>
-        <p>{stats.filter(stat => !stat.is_my_turn).length} game(s) waiting for others</p>
-        <div className="text-sm text-muted-foreground ml-2">
-          {tags.map(tag => (
-            <p key={tag}>{tag}: {stats.filter(s => s.tag === tag && !s.is_my_turn).length} game(s) waiting for others</p>
-          ))}
-        </div>
+        {isInitialized && (
+          <>
+            <p>{stats.length} active game(s)</p>
+            <div className="text-sm text-muted-foreground ml-2">
+              {tags.map(tag => (
+                <p key={tag}>{tag}: {stats.filter(s => s.tag === tag).length} active game(s)</p>
+              ))}
+            </div>
+            <p>{stats.reduce((sum, stat) => sum + stat.posts_written_by_me, 0)} post(s) written</p>
+            <div className="text-sm text-muted-foreground ml-2">
+              {tags.map(tag => (
+                <p key={tag}>{tag}: {stats.filter(s => s.tag === tag).reduce((sum, stat) => sum + stat.posts_written_by_me, 0)} post(s) written</p>
+              ))}
+            </div>
+            <p>{stats.filter(stat => stat.is_my_turn).length} game(s) waiting for me</p>
+            <div className="text-sm text-muted-foreground ml-2">
+              {tags.map(tag => (
+                <p key={tag}>{tag}: {stats.filter(s => s.tag === tag && s.is_my_turn).length} game(s) waiting for me</p>
+              ))}
+            </div>
+            <p>{stats.filter(stat => !stat.is_my_turn).length} game(s) waiting for others</p>
+            <div className="text-sm text-muted-foreground ml-2">
+              {tags.map(tag => (
+                <p key={tag}>{tag}: {stats.filter(s => s.tag === tag && !s.is_my_turn).length} game(s) waiting for others</p>
+              ))}
+            </div>
+          </>
+        )}
       </CardContent>
     </Card>
   )
