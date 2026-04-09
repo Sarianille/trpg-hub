@@ -2,11 +2,13 @@ import { useEffect, useState } from "react"
 import { supabase } from "@/lib/client"
 import type { Game } from "@/types"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
+import { Button } from "./ui/button"
 
 export function Statistics() {
   const [stats, setStats] = useState<Game[]>([])
   const [error, setError] = useState<string | null>(null)
   const [isInitialized, setIsInitialized] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
       
   useEffect(() => {
     let subscription: ReturnType<typeof supabase.channel> | null = null
@@ -65,6 +67,9 @@ export function Statistics() {
         <CardTitle>
           Monthly Statistics
         </CardTitle>
+        <Button variant="link" size="sm" className="w-fit p-0 h-auto text-muted-foreground" onClick={() => setIsExpanded(!isExpanded)}>
+          {isExpanded ? 'Hide details' : 'Show details'}
+        </Button>
       </CardHeader>
       <CardContent>
         {!isInitialized && 'Loading statistics...'}
@@ -73,25 +78,25 @@ export function Statistics() {
           <>
             <p>{stats.length} active game(s)</p>
             <div className="text-sm text-muted-foreground ml-2">
-              {tagStats.filter(t => t.activeGames > 0).map(t => (
+              {isExpanded && tagStats.filter(t => t.activeGames > 0).map(t => (
                 <p key={t.tag}>{t.tag}: {t.activeGames} active game(s)</p>
               ))}
             </div>
             <p>{stats.reduce((sum, stat) => sum + stat.posts_written_by_me, 0)} post(s) written</p>
             <div className="text-sm text-muted-foreground ml-2">
-              {tagStats.filter(t => t.postsWrittenByMe > 0).map(t => (
+              {isExpanded && tagStats.filter(t => t.postsWrittenByMe > 0).map(t => (
                 <p key={t.tag}>{t.tag}: {t.postsWrittenByMe} post(s) written</p>
               ))}
             </div>
             <p>{stats.filter(stat => stat.is_my_turn).length} game(s) waiting for me</p>
             <div className="text-sm text-muted-foreground ml-2">
-              {tagStats.filter(t => t.waitingForMe > 0).map(t => (
+              {isExpanded && tagStats.filter(t => t.waitingForMe > 0).map(t => (
                 <p key={t.tag}>{t.tag}: {t.waitingForMe} game(s) waiting for me</p>
               ))}
             </div>
             <p>{stats.filter(stat => !stat.is_my_turn).length} game(s) waiting for others</p>
             <div className="text-sm text-muted-foreground ml-2">
-              {tagStats.filter(t => t.waitingForOthers > 0).map(t => (
+              {isExpanded && tagStats.filter(t => t.waitingForOthers > 0).map(t => (
                 <p key={t.tag}>{t.tag}: {t.waitingForOthers} game(s) waiting for others</p>
               ))}
             </div>
