@@ -77,7 +77,16 @@ export function AddGameForm() {
                 placeholder="Tag"
                 value={tag}
                 onChange={(e) => setTag(e.target.value)}
+                list="tag-suggestions"
               />
+              <datalist id="tag-suggestions">
+                <option value="Mois Gris" />
+                <option value="DRAO" />
+                <option value="Helvanir" />
+                <option value="Gallirea" />
+                <option value="Brloh" />
+                <option value="Pelíšek" />
+              </datalist>
             </div>
             {error && <p className="text-sm text-red-500">{error}</p>}
             <Button type="submit" disabled={isLoading}>
