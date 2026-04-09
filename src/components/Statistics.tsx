@@ -51,6 +51,13 @@ export function Statistics() {
   }, [])
 
   const tags = Array.from(new Set(stats.map(s => s.tag).filter(Boolean)))
+  const tagStats = tags.map(tag => ({
+    tag,
+    activeGames: stats.filter(s => s.tag === tag).length,
+    postsWrittenByMe: stats.filter(s => s.tag === tag).reduce((sum, stat) => sum + stat.posts_written_by_me, 0),
+    waitingForMe: stats.filter(s => s.tag === tag && s.is_my_turn).length,
+    waitingForOthers: stats.filter(s => s.tag === tag && !s.is_my_turn).length,
+  }))
 
   return (
     <Card className="w-5/6 md:w-100">
@@ -66,26 +73,26 @@ export function Statistics() {
           <>
             <p>{stats.length} active game(s)</p>
             <div className="text-sm text-muted-foreground ml-2">
-              {tags.map(tag => (
-                <p key={tag}>{tag}: {stats.filter(s => s.tag === tag).length} active game(s)</p>
+              {tagStats.filter(t => t.activeGames > 0).map(t => (
+                <p key={t.tag}>{t.tag}: {t.activeGames} active game(s)</p>
               ))}
             </div>
             <p>{stats.reduce((sum, stat) => sum + stat.posts_written_by_me, 0)} post(s) written</p>
             <div className="text-sm text-muted-foreground ml-2">
-              {tags.map(tag => (
-                <p key={tag}>{tag}: {stats.filter(s => s.tag === tag).reduce((sum, stat) => sum + stat.posts_written_by_me, 0)} post(s) written</p>
+              {tagStats.filter(t => t.postsWrittenByMe > 0).map(t => (
+                <p key={t.tag}>{t.tag}: {t.postsWrittenByMe} post(s) written</p>
               ))}
             </div>
             <p>{stats.filter(stat => stat.is_my_turn).length} game(s) waiting for me</p>
             <div className="text-sm text-muted-foreground ml-2">
-              {tags.map(tag => (
-                <p key={tag}>{tag}: {stats.filter(s => s.tag === tag && s.is_my_turn).length} game(s) waiting for me</p>
+              {tagStats.filter(t => t.waitingForMe > 0).map(t => (
+                <p key={t.tag}>{t.tag}: {t.waitingForMe} game(s) waiting for me</p>
               ))}
             </div>
             <p>{stats.filter(stat => !stat.is_my_turn).length} game(s) waiting for others</p>
             <div className="text-sm text-muted-foreground ml-2">
-              {tags.map(tag => (
-                <p key={tag}>{tag}: {stats.filter(s => s.tag === tag && !s.is_my_turn).length} game(s) waiting for others</p>
+              {tagStats.filter(t => t.waitingForOthers > 0).map(t => (
+                <p key={t.tag}>{t.tag}: {t.waitingForOthers} game(s) waiting for others</p>
               ))}
             </div>
           </>
