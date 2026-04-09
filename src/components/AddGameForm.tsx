@@ -8,6 +8,7 @@ import { Card, CardContent } from "./ui/card"
 export function AddGameForm() {
   const [myCharacter, setMyCharacter] = useState('')
   const [otherCharacters, setOtherCharacters] = useState('')
+  const [tag, setTag] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -23,7 +24,8 @@ export function AddGameForm() {
         user_id: user?.id,
         my_character: myCharacter,
         other_characters: otherCharacters.split(',').map(c => c.trim()),
-        is_my_turn: true
+        is_my_turn: true,
+        tag: tag || null,
       })
 
       if (error) {
@@ -31,6 +33,7 @@ export function AddGameForm() {
       } else {
         setMyCharacter('')
         setOtherCharacters('')
+        setTag('')
       }
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'Error adding game. Please try again.')
@@ -64,6 +67,16 @@ export function AddGameForm() {
                 required
                 value={otherCharacters}
                 onChange={(e) => setOtherCharacters(e.target.value)}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="tag">Tag</Label>
+              <Input
+                id="tag"
+                type="text"
+                placeholder="Tag"
+                value={tag}
+                onChange={(e) => setTag(e.target.value)}
               />
             </div>
             {error && <p className="text-sm text-red-500">{error}</p>}

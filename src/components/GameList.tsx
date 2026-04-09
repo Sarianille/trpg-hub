@@ -3,6 +3,7 @@ import { supabase } from "@/lib/client"
 import type { Game } from "@/types"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 export function GameList() {
   const [games, setGames] = useState<Game[]>([])
@@ -103,6 +104,7 @@ export function GameList() {
               <CardTitle>
                 {game.my_character} x {game.other_characters.join(', ')}
               </CardTitle>
+              {game.tag && <Badge variant="outline">{game.tag}</Badge>}
             </CardHeader>
             <CardContent>
               <p>Last response: {elapsedTime(game.updated_at)}</p>
@@ -120,6 +122,7 @@ export function GameList() {
               <CardTitle>
                 {game.my_character} x {game.other_characters.join(', ')}
               </CardTitle>
+              {game.tag && <Badge variant="outline">{game.tag}</Badge>}
             </CardHeader>
             <CardContent>
               <p>Last response: {elapsedTime(game.updated_at)}</p>
