@@ -4,11 +4,14 @@ import type { Game } from "@/types"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Textarea } from "@/components/ui/textarea"
 
 export function GameList() {
   const [games, setGames] = useState<Game[]>([])
   const [error, setError] = useState<string | null>(null)
   const [isInitialized, setIsInitialized] = useState(false)
+  const [editingNote, setEditingNote] = useState<string | null>(null)
+  const [note, setNote] = useState('')
 
   useEffect(() => {
     let subscription: ReturnType<typeof supabase.channel> | null = null
@@ -87,6 +90,12 @@ export function GameList() {
     return rtf.format(-days, 'day')
   }
 
+  const saveNote = async (id: string) => {
+    await supabase.from('games').update({ note: note }).eq('id', id)
+
+    setEditingNote(null)
+  }
+
   const gamesWaitingForMe = games.filter(game => game.is_my_turn)
   const gamesWaitingForOthers = games.filter(game => !game.is_my_turn)
 
@@ -107,6 +116,20 @@ export function GameList() {
               {game.tag && <Badge variant="outline">{game.tag}</Badge>}
             </CardHeader>
             <CardContent>
+              {editingNote === game.id ? (
+                <Textarea 
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  onBlur={() => saveNote(game.id)}
+                />
+              ) : (
+                <p 
+                  className="text-sm text-muted-foreground cursor-pointer whitespace-pre-wrap"
+                  onClick={() => { setEditingNote(game.id); setNote(game.note ?? '') }}
+                >
+                  {game.note || 'Add a note...'}
+                </p>
+              )}
               <p>Last response: {elapsedTime(game.updated_at)}</p>
               <Button onClick={() => switchTurn(game.id)}>Switch turn</Button>
               <Button onClick={() => deleteGame(game.id)}>Finish game</Button>
@@ -125,6 +148,20 @@ export function GameList() {
               {game.tag && <Badge variant="outline">{game.tag}</Badge>}
             </CardHeader>
             <CardContent>
+              {editingNote === game.id ? (
+                <Textarea 
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  onBlur={() => saveNote(game.id)}
+                />
+              ) : (
+                <p 
+                  className="text-sm text-muted-foreground cursor-pointer whitespace-pre-wrap"
+                  onClick={() => { setEditingNote(game.id); setNote(game.note ?? '') }}
+                >
+                  {game.note || 'Add a note...'}
+                </p>
+              )}
               <p>Last response: {elapsedTime(game.updated_at)}</p>
               <Button onClick={() => switchTurn(game.id)}>Switch turn</Button>
               <Button onClick={() => deleteGame(game.id)}>Finish game</Button>
