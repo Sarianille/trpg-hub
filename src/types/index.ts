@@ -7,4 +7,5 @@ export type Game = {
     updated_at: string
     tag: string | null
     posts_written_by_me: number
+    note: string | null
 }
