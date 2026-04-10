@@ -32,11 +32,15 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
 
   const switchTurn = async (id: string) => {
     try {
-      const { error } = await supabase.from('games').update({ is_my_turn: !game.is_my_turn }).eq('id', id)
+      const updates = {
+        is_my_turn: !game.is_my_turn,
+        ...(game.is_my_turn && { posts_written_by_me: game.posts_written_by_me + 1 })
+      }
+      const { error } = await supabase.from('games').update(updates).eq('id', id)
       if (error) {
         throw error
       } else {
-        onUpdate({ ...game, is_my_turn: !game.is_my_turn })
+        onUpdate({ ...game, ...updates })
       } 
     } catch (error: unknown) {
         setError(error instanceof Error ? error.message : 'Error switching turn. Please try again.')
@@ -79,6 +83,7 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
             {game.note || 'Add a note...'}
           </p>
         )}
+        <p>Posts written by you: {game.posts_written_by_me}</p>
         <p>Last response: {elapsedTime(game.updated_at)}</p>
         {error && <p className="text-sm text-red-500">{error}</p>}
         <Button onClick={() => switchTurn(game.id)}>Switch turn</Button>
