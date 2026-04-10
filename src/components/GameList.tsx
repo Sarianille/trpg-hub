@@ -51,8 +51,9 @@ export function GameList() {
     return () => { if (subscription) supabase.removeChannel(subscription) }
   }, [])
 
-  const gamesWaitingForMe = games.filter(game => game.is_my_turn)
-  const gamesWaitingForOthers = games.filter(game => !game.is_my_turn)
+  const sortedGames = [...games].sort((a, b) => new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime())
+  const gamesWaitingForMe = sortedGames.filter(game => game.is_my_turn)
+  const gamesWaitingForOthers = sortedGames.filter(game => !game.is_my_turn)
 
   return (
   <Card className="flex flex-col gap-2 w-3/4 items-center">
