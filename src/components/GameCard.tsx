@@ -3,7 +3,7 @@ import { supabase } from "@/lib/client"
 import type { Game } from "@/types"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 
 type GameCardProps = {
@@ -61,23 +61,26 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
   }
   
   return (
-    <Card className="w-5/6">
+    <Card className="w-5/6 gap-2">
       <CardHeader>
-        <CardTitle>
-          {game.my_character} x {game.other_characters.join(', ')}
+        <CardTitle className="flex flex-wrap items-center gap-2">
+          <span>{game.my_character}</span>
+          <span>x</span>
+          <span>{game.other_characters.join(', ')}</span>
         </CardTitle>
         {game.tag && <Badge variant="outline">{game.tag}</Badge>}
       </CardHeader>
       <CardContent>
         {editingNote ? (
           <Textarea 
+            className="mb-2"
             value={note}
             onChange={(e) => setNote(e.target.value)}
             onBlur={() => saveNote()}
           />
         ) : (
           <p 
-            className="text-sm text-muted-foreground cursor-pointer whitespace-pre-wrap"
+            className="text-sm text-muted-foreground cursor-pointer whitespace-pre-wrap mb-2"
             onClick={() => { setEditingNote(true); setNote(game.note ?? '') }}
           >
             {game.note || 'Add a note...'}
@@ -86,9 +89,11 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
         <p>Posts written by you: {game.posts_written_by_me}</p>
         <p>Last response: {elapsedTime(game.updated_at)}</p>
         {error && <p className="text-sm text-red-500">{error}</p>}
+      </CardContent>
+      <CardFooter className="flex justify-around">
         <Button onClick={() => switchTurn(game.id)}>Switch turn</Button>
         <Button onClick={() => deleteGame(game.id)}>Finish game</Button>
-      </CardContent>
+      </CardFooter>
     </Card>
   )
 }
