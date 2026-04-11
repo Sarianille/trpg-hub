@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from "./ui/label"
 import { Card, CardContent } from "./ui/card"
+import { Info } from "lucide-react"
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip"
 
 export function AddGameForm() {
   const [myCharacter, setMyCharacter] = useState('')
@@ -59,11 +61,20 @@ export function AddGameForm() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="otherCharacters">Other Characters</Label>
+              <Label htmlFor="otherCharacters">Other Characters
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Info className="h-4 w-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Comma separate multiple characters</p>
+                  </TooltipContent>
+                </Tooltip>
+              </Label>
               <Input
                 id="otherCharacters"
                 type="text"
-                placeholder="Other characters (comma separated)"
+                placeholder="Other characters"
                 required
                 value={otherCharacters}
                 onChange={(e) => setOtherCharacters(e.target.value)}
