@@ -56,7 +56,7 @@ export function GameList() {
   const gamesWaitingForOthers = sortedGames.filter(game => !game.is_my_turn)
 
   return (
-  <Card className="flex flex-col gap-2 w-3/4 items-center md:max-h-[calc(100vh-135px)] md:overflow-y-auto custom-scrollbar">
+  <Card className="flex flex-col gap-2 w-3/4 items-center md:max-h-[calc(100vh-130px)] md:overflow-y-auto custom-scrollbar">
     <div className="flex flex-col md:flex-row gap-2 w-full items-start">
       <div className="flex flex-col gap-2 w-full items-center">
         <h2 className="text-lg font-semibold mb-2">Your turn</h2>
