@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { supabase } from "@/lib/client"
+import { Info } from "lucide-react"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from "./ui/label"
-import { Card, CardContent } from "./ui/card"
-import { Info } from "lucide-react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent } from "@/components/ui/card"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 export function AddGameForm() {
   const [myCharacter, setMyCharacter] = useState('')

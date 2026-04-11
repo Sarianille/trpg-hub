@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { supabase } from "@/lib/client"
 import type { Game } from "@/types"
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
-import { Button } from "./ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 
 export function Statistics() {
   const [stats, setStats] = useState<Game[]>([])
