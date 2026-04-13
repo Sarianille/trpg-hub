@@ -3,6 +3,7 @@ import { supabase } from '@/lib/client'
 import { Navbar } from '@/components/Navbar'
 import { AddGameForm } from '@/components/AddGameForm'
 import { GameList } from '@/components/GameList'
+import { Statistics } from '@/components/Statistics'
 
 export default function Dashboard() {
   useEffect(() => {
@@ -15,9 +16,11 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div>
+      <Navbar />
+      <div className="flex flex-col md:flex-row items-start gap-6 py-8 px-4">
         <AddGameForm />
         <GameList />
+        <Statistics />
       </div>
     </div>
   )
