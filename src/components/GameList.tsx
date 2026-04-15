@@ -19,15 +19,15 @@ export function GameList() {
       try {
         setError(null)
 
-        const { data, error } = await supabase.from('games').select('*').is('finished_at', null)
+        const { data, error } = await supabase.from('games').select('*')
 
         if (error) {
           throw error
         } else {
-          setGames(data)
+          setGames(data.filter(g => !g.finished_at))
         }
       } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : t('gameList.error'))
+        setError(error instanceof Error ? error.message : 'error')
       } finally {
         setIsInitialized(true)
       }
@@ -45,14 +45,14 @@ export function GameList() {
           .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchGames())
           .subscribe()
       } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : t('gameList.error'))
+        setError(error instanceof Error ? error.message : 'error')
       }
     }
     
     setup()
 
     return () => { if (subscription) supabase.removeChannel(subscription) }
-  }, [t])
+  }, [])
 
   const sortedGames = [...games].sort((a, b) => new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime())
   const gamesWaitingForMe = sortedGames.filter(game => game.is_my_turn)
@@ -85,7 +85,7 @@ export function GameList() {
       </div>
     </div>
     {!isInitialized && <p>{t('gameList.loading')}</p>}
-    {error && <p className="text-sm text-red-500">{error}</p>}
+    {error && <p className="text-sm text-red-500">{error === 'error' ? t('gameList.error') : error}</p>}
     {isInitialized && games.length === 0 && <p>{t('gameList.noGames')}</p>}
   </Card>
   )
