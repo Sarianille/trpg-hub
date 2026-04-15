@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/client'
 import { Navbar } from '@/components/Navbar'
 import { AddGameForm } from '@/components/AddGameForm'
@@ -6,13 +6,18 @@ import { GameList } from '@/components/GameList'
 import { Statistics } from '@/components/Statistics'
 
 export default function Dashboard() {
+  const [isChecking, setIsChecking] = useState(true)
+
   useEffect(() => {
     const checkAuth = async () => {
       const { error } = await supabase.auth.getUser()
       if (error) location.href = '/login'
+      else setIsChecking(false)
     }
     checkAuth()
   }, [])
+
+  if (isChecking) return null
 
   return (
     <div>
