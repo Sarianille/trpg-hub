@@ -5,6 +5,7 @@ import { Sun, Moon } from 'lucide-react'
 import { useTheme } from '@/components/ThemeProvider'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/lib/i18n'
+import { FeedbackForm } from '@/components/FeedbackForm'
 
 export function Navbar() {
   const { theme, setTheme } = useTheme()
@@ -19,6 +20,7 @@ export function Navbar() {
   <div className="flex items-center justify-between p-3">
     <div>TRPG hub</div>
     <div className="flex items-center gap-2">
+      <FeedbackForm />
       <Select value={i18n.language} onValueChange={(val) => i18n.changeLanguage(val ?? undefined)}>
         <SelectTrigger>
           <SelectValue />
