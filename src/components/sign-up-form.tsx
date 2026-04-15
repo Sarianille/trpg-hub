@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { cn } from '@/lib/utils'
 import { supabase } from '@/lib/client'
@@ -21,12 +22,14 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
   const [isLoading, setIsLoading] = useState(false)
   const [success, setSuccess] = useState(false)
 
+  const { t } = useTranslation()
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
 
     if (password !== repeatPassword) {
-      setError('Passwords do not match')
+      setError(t('signUp.passwordsDoNotMatch'))
       return
     }
     setIsLoading(true)
@@ -39,42 +42,41 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
       if (error) throw error
       setSuccess(true)
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : 'An error occurred')
+      setError(error instanceof Error ? error.message : t('signUp.error'))
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <div className={cn('flex flex-col gap-6 min-h-screen items-center justify-center', className)} {...props}>
       {success ? (
-        <Card>
+        <Card className="w-5/6 md:w-100">
           <CardHeader>
-            <CardTitle className="text-2xl">Thank you for signing up!</CardTitle>
-            <CardDescription>Check your email to confirm</CardDescription>
+            <CardTitle className="text-2xl">{t('signUp.successTitle')}</CardTitle>
+            <CardDescription>{t('signUp.successDescription')}</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              You&apos;ve successfully signed up. Please check your email to confirm your account
-              before signing in.
+              {t('signUp.successMessage')}
             </p>
           </CardContent>
         </Card>
       ) : (
-        <Card>
+        <Card className="w-5/6 md:w-100">
           <CardHeader>
-            <CardTitle className="text-2xl">Sign up</CardTitle>
-            <CardDescription>Create a new account</CardDescription>
+            <CardTitle className="text-2xl">{t('signUp.title')}</CardTitle>
+            <CardDescription>{t('signUp.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignUp}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t('signUp.email')}</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder={t('signUp.emailPlaceholder')}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -82,7 +84,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                 </div>
                 <div className="grid gap-2">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">{t('signUp.password')}</Label>
                   </div>
                   <Input
                     id="password"
@@ -94,7 +96,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                 </div>
                 <div className="grid gap-2">
                   <div className="flex items-center">
-                    <Label htmlFor="repeat-password">Repeat Password</Label>
+                    <Label htmlFor="repeat-password">{t('signUp.repeatPassword')}</Label>
                   </div>
                   <Input
                     id="repeat-password"
@@ -106,13 +108,13 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                 </div>
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? 'Creating an account...' : 'Sign up'}
+                  {isLoading ? t('signUp.submitting') : t('signUp.submit')}
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">
-                Already have an account?{' '}
+                {t('signUp.alreadyHaveAccount')}{' '}
                 <a href="/login" className="underline underline-offset-4">
-                  Login
+                  {t('signUp.login')}
                 </a>
               </div>
             </form>

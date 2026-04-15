@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { supabase } from "@/lib/client"
+import { useTranslation } from "react-i18next"
 import { Info } from "lucide-react"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -13,6 +14,8 @@ export function AddGameForm() {
   const [tag, setTag] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+
+  const { t } = useTranslation()
 
   const handleAddGame = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -38,7 +41,7 @@ export function AddGameForm() {
         setTag('')
       }
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : 'Error adding game. Please try again.')
+      setError(error instanceof Error ? error.message : t('addGame.error'))
     } finally {
       setIsLoading(false)
     }
@@ -50,42 +53,42 @@ export function AddGameForm() {
         <form onSubmit={handleAddGame}>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="myCharacter">Your Character</Label>
+              <Label htmlFor="myCharacter">{t('addGame.myCharacter')}</Label>
               <Input
                 id="myCharacter"
                 type="text"
-                placeholder="Your character"
+                placeholder={t('addGame.myCharacterPlaceholder')}
                 required
                 value={myCharacter}
                 onChange={(e) => setMyCharacter(e.target.value)}
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="otherCharacters">Other Characters
+              <Label htmlFor="otherCharacters">{t('addGame.otherCharacters')}
                 <Tooltip>
                   <TooltipTrigger>
                     <Info className="h-4 w-4 text-muted-foreground" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Comma separate multiple characters</p>
+                    <p>{t('addGame.otherCharactersTooltip')}</p>
                   </TooltipContent>
                 </Tooltip>
               </Label>
               <Input
                 id="otherCharacters"
                 type="text"
-                placeholder="Other characters"
+                placeholder={t('addGame.otherCharactersPlaceholder')}
                 required
                 value={otherCharacters}
                 onChange={(e) => setOtherCharacters(e.target.value)}
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="tag">Tag</Label>
+              <Label htmlFor="tag">{t('addGame.tag')}</Label>
               <Input
                 id="tag"
                 type="text"
-                placeholder="Tag"
+                placeholder={t('addGame.tagPlaceholder')}
                 value={tag}
                 onChange={(e) => setTag(e.target.value)}
                 list="tag-suggestions"
@@ -101,7 +104,7 @@ export function AddGameForm() {
             </div>
             {error && <p className="text-sm text-red-500">{error}</p>}
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Adding...' : 'Add Game'}
+              {isLoading ? t('addGame.submitting') : t('addGame.submit')}
             </Button>
           </div>
         </form>

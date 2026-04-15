@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { cn } from '@/lib/utils'
 import { supabase } from '@/lib/client'
@@ -19,6 +20,8 @@ export function ForgotPasswordForm({ className, ...props }: React.ComponentProps
   const [success, setSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
+  const { t } = useTranslation()
+
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
@@ -31,44 +34,43 @@ export function ForgotPasswordForm({ className, ...props }: React.ComponentProps
       if (error) throw error
       setSuccess(true)
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : 'An error occurred')
+      setError(error instanceof Error ? error.message : t('forgotPassword.error'))
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <div className={cn('flex flex-col gap-6 min-h-screen items-center justify-center', className)} {...props}>
       {success ? (
-        <Card>
+        <Card className="w-5/6 md:w-100">
           <CardHeader>
-            <CardTitle className="text-2xl">Check Your Email</CardTitle>
-            <CardDescription>Password reset instructions sent</CardDescription>
+            <CardTitle className="text-2xl">{t('forgotPassword.successTitle')}</CardTitle>
+            <CardDescription>{t('forgotPassword.successDescription')}</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              If you registered using your email and password, you will receive a password reset
-              email.
+              {t('forgotPassword.successMessage')}
             </p>
           </CardContent>
         </Card>
       ) : (
-        <Card>
+        <Card className="w-5/6 md:w-100">
           <CardHeader>
-            <CardTitle className="text-2xl">Reset Your Password</CardTitle>
+            <CardTitle className="text-2xl">{t('forgotPassword.title')}</CardTitle>
             <CardDescription>
-              Type in your email and we&apos;ll send you a link to reset your password
+              {t('forgotPassword.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleForgotPassword}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t('forgotPassword.email')}</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder={t('forgotPassword.emailPlaceholder')}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -76,13 +78,13 @@ export function ForgotPasswordForm({ className, ...props }: React.ComponentProps
                 </div>
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? 'Sending...' : 'Send reset email'}
+                  {isLoading ? t('forgotPassword.submitting') : t('forgotPassword.submit')}
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">
-                Already have an account?{' '}
+                {t('forgotPassword.alreadyHaveAccount')}{' '}
                 <a href="/login" className="underline underline-offset-4">
-                  Login
+                  {t('forgotPassword.login')}
                 </a>
               </div>
             </form>

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { supabase } from "@/lib/client"
+import { useTranslation } from "react-i18next"
 import type { Game } from "@/types"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -17,6 +18,8 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
   const [note, setNote] = useState('')
   const [error, setError] = useState<string | null>(null)
 
+  const { t, i18n } = useTranslation()
+
   const deleteGame = async (id: string) => {
     try {
       const { error } = await supabase.from('games').delete().eq('id', id)
@@ -26,7 +29,7 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
         onDelete(id)
       }
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : 'Error deleting game. Please try again.')
+      setError(error instanceof Error ? error.message : t('gameCard.deleteError'))
     }
   }
 
@@ -43,13 +46,13 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
         onUpdate({ ...game, ...updates })
       } 
     } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : 'Error switching turn. Please try again.')
+        setError(error instanceof Error ? error.message : t('gameCard.switchTurnError'))
     }
   }
 
   const elapsedTime = (updatedAt: string) => {
     const elapsed = Math.max(0, Date.now() - new Date(updatedAt).getTime())
-    const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
+    const rtf = new Intl.RelativeTimeFormat(i18n.language, { numeric: 'auto' })
     const days = Math.floor(elapsed / (1000 * 60 * 60 * 24))
     return rtf.format(-days, 'day')
   }
@@ -83,16 +86,16 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
             className="text-sm text-muted-foreground cursor-pointer whitespace-pre-wrap mb-2"
             onClick={() => { setEditingNote(true); setNote(game.note ?? '') }}
           >
-            {game.note || 'Add a note...'}
+            {game.note || t('gameCard.addNote')}
           </p>
         )}
-        <p>Posts written by you: {game.posts_written_by_me}</p>
-        <p>Last response: {elapsedTime(game.updated_at)}</p>
+        <p>{t('gameCard.postsWritten', { count: game.posts_written_by_me })}</p>
+        <p>{t('gameCard.lastResponse', { timeAgo: elapsedTime(game.updated_at) })}</p>
         {error && <p className="text-sm text-red-500">{error}</p>}
       </CardContent>
       <CardFooter className="flex justify-around">
-        <Button onClick={() => switchTurn(game.id)}>Switch turn</Button>
-        <Button onClick={() => deleteGame(game.id)}>Finish game</Button>
+        <Button onClick={() => switchTurn(game.id)}>{t('gameCard.switchTurn')}</Button>
+        <Button onClick={() => deleteGame(game.id)}>{t('gameCard.finishGame')}</Button>
       </CardFooter>
     </Card>
   )
