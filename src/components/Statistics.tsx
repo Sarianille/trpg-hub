@@ -28,7 +28,7 @@ export function Statistics() {
           setStats(data)
         }
       } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : t('statistics.error'))
+        setError(error instanceof Error ? error.message : 'error')
       } finally {
         setIsInitialized(true)
       }
@@ -46,14 +46,14 @@ export function Statistics() {
           .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchStats())
           .subscribe()
       } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : t('statistics.error'))
+        setError(error instanceof Error ? error.message : 'error')
       }
     }
     
     setup()
 
     return () => { if (subscription) supabase.removeChannel(subscription) }
-  }, [t])
+  }, [])
 
   const activeGames = stats.filter(s => !s.finished_at)
   const finishedGames = stats.filter(s => s.finished_at)
@@ -79,7 +79,7 @@ export function Statistics() {
       </CardHeader>
       <CardContent>
         {!isInitialized && t('statistics.loading')}
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-red-500">{error === 'error' ? t('statistics.error') : error}</p>}
         {isInitialized && (
           <>
             <p>{t('statistics.activeGames', { count: activeGames.length })}</p>
