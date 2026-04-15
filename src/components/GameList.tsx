@@ -19,7 +19,7 @@ export function GameList() {
       try {
         setError(null)
 
-        const { data, error } = await supabase.from('games').select('*')
+        const { data, error } = await supabase.from('games').select('*').is('finished_at', null)
 
         if (error) {
           throw error
