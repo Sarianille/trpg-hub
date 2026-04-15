@@ -56,10 +56,12 @@ export function Statistics() {
   }, [t])
 
   const activeGames = stats.filter(s => !s.finished_at)
+  const finishedGames = stats.filter(s => s.finished_at)
   const tags = Array.from(new Set(stats.map(s => s.tag).filter(Boolean)))
   const tagStats = tags.map(tag => ({
     tag,
     activeGames: activeGames.filter(s => s.tag === tag).length,
+    finishedGames: finishedGames.filter(s => s.tag === tag).length,
     postsWrittenByMe: stats.filter(s => s.tag === tag).reduce((sum, stat) => sum + stat.posts_written_by_me, 0),
     waitingForMe: activeGames.filter(s => s.tag === tag && s.is_my_turn).length,
     waitingForOthers: activeGames.filter(s => s.tag === tag && !s.is_my_turn).length,
@@ -84,6 +86,12 @@ export function Statistics() {
             <div className="text-sm text-muted-foreground ml-2">
               {isExpanded && tagStats.filter(s => s.activeGames > 0).map(s => (
                 <p key={s.tag}>{s.tag}: { t('statistics.activeGames', { count: s.activeGames })}</p>
+              ))}
+            </div>
+            <p>{t('statistics.finishedGames', { count: finishedGames.length })}</p>
+            <div className="text-sm text-muted-foreground ml-2">
+              {isExpanded && tagStats.filter(s => s.finishedGames > 0).map(s => (
+                <p key={s.tag}>{s.tag}: { t('statistics.finishedGames', { count: s.finishedGames })}</p>
               ))}
             </div>
             <p>{t('statistics.postsWritten', { count: stats.reduce((sum, stat) => sum + stat.posts_written_by_me, 0) })}</p>
