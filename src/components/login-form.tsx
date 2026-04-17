@@ -42,7 +42,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
   }
 
   return (
-    <div className={cn('flex flex-col gap-6 min-h-screen items-center justify-center', className)} {...props}>
+    <div className={cn('flex flex-col gap-6 min-h-[calc(100vh-130px)] items-center justify-center', className)} {...props}>
       <Card className="w-5/6 md:w-100">
         <CardHeader>
           <CardTitle className="text-2xl">{t('login.title')}</CardTitle>
