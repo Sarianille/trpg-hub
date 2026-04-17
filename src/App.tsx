@@ -3,11 +3,13 @@ import { LoginForm } from '@/components/login-form'
 import { SignUpForm } from '@/components/sign-up-form'
 import { ForgotPasswordForm } from '@/components/forgot-password-form'
 import { UpdatePasswordForm } from '@/components/update-password-form'
+import { Navbar } from '@/components/Navbar'
 import Dashboard from '@/pages/Dashboard'
 
 export default function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />
