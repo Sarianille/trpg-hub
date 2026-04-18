@@ -105,7 +105,7 @@ export function Statistics() {
         </Button>
       </CardHeader>
       <CardContent>
-        {!isInitialized && <p>t('statistics.loading')</p>}
+        {!isInitialized && <p>{t('statistics.loading')}</p>}
         {error && <p className="text-sm text-red-500">{error === 'generic' ? t('statistics.error') : error}</p>}
         {isInitialized && stats.map(({ labelKey, total, breakdown }) => (
           <div key={labelKey}>
