@@ -33,29 +33,29 @@ export function Navbar() {
   }
 
   return (
-  <div className="flex items-center justify-between p-3">
-    <div>TRPG hub</div>
-    <div className="flex items-center gap-2">
-      {session && <FeedbackForm />}
-      <Select value={i18n.language} onValueChange={(val) => i18n.changeLanguage(val ?? undefined)}>
-        <SelectTrigger>
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="cs">Čeština</SelectItem>
-          <SelectItem value="sk">Slovenčina</SelectItem>
-          <SelectItem value="en">English</SelectItem>
-        </SelectContent>
-      </Select>
-      <Button size="icon" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-        {theme === 'light' ? <Moon /> : <Sun />}
-      </Button>
-      {session && (
-        <Button onClick={handleLogout}>
-          {t('logout')}
+    <div className="flex items-center justify-between p-3">
+      <div>TRPG hub</div>
+      <div className="flex items-center gap-2">
+        {session && <FeedbackForm />}
+        <Select value={i18n.language} onValueChange={(val) => i18n.changeLanguage(val ?? undefined)}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="cs">Čeština</SelectItem>
+            <SelectItem value="sk">Slovenčina</SelectItem>
+            <SelectItem value="en">English</SelectItem>
+          </SelectContent>
+        </Select>
+        <Button size="icon" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+          {theme === 'light' ? <Moon /> : <Sun />}
         </Button>
-      )}
+        {session && (
+          <Button onClick={handleLogout}>
+            {t('logout')}
+          </Button>
+        )}
+      </div>
     </div>
-  </div>
   )
 }
