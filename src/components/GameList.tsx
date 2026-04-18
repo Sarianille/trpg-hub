@@ -27,7 +27,7 @@ export function GameList() {
           setGames(data.filter(g => !g.finished_at))
         }
       } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : 'error')
+        setError(error instanceof Error ? error.message : 'generic')
       } finally {
         setIsInitialized(true)
       }
@@ -45,7 +45,7 @@ export function GameList() {
           .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchGames())
           .subscribe()
       } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : 'error')
+        setError(error instanceof Error ? error.message : 'generic')
       }
     }
     
@@ -82,7 +82,7 @@ export function GameList() {
         {renderColumn(t('gameList.othersTurn'), gamesWaitingForOthers)}
       </div>
       {!isInitialized && <p>{t('gameList.loading')}</p>}
-      {error && <p className="text-sm text-red-500">{error === 'error' ? t('gameList.error') : error}</p>}
+      {error && <p className="text-sm text-red-500">{error === 'generic' ? t('gameList.error') : error}</p>}
       {isInitialized && games.length === 0 && <p>{t('gameList.noGames')}</p>}
     </Card>
   )
