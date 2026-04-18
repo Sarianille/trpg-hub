@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/lib/client'
 import type { Session } from '@supabase/supabase-js'
 import { Button } from '@/components/ui/button'
@@ -15,6 +16,8 @@ export function Navbar() {
   const { theme, setTheme } = useTheme()
   const { t } = useTranslation()
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => setSession(session))
 
@@ -27,7 +30,7 @@ export function Navbar() {
   
   const handleLogout = async () => {
     await supabase.auth.signOut()
-    location.href = '/login'
+    navigate('/login')
   }
 
   return (
