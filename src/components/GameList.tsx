@@ -79,7 +79,7 @@ export function GameList() {
     <Card className="flex flex-col gap-2 w-3/4 items-center md:max-h-[calc(100vh-130px)] md:overflow-y-auto custom-scrollbar">
       <div className="flex flex-col md:flex-row gap-2 w-full items-start">
         {renderColumn(t('gameList.yourTurn'), gamesWaitingForMe)}
-        {renderColumn(t('gameList.othersTurn'), gamesWaitingForOthers)}
+        {renderColumn(t('gameList.waitingForOthers'), gamesWaitingForOthers)}
       </div>
       {!isInitialized && <p>{t('gameList.loading')}</p>}
       {error && <p className="text-sm text-red-500">{error === 'generic' ? t('gameList.error') : error}</p>}
