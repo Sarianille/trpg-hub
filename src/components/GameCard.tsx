@@ -20,25 +20,25 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
 
   const { t, i18n } = useTranslation()
 
-  const deleteGame = async (id: string) => {
+  const deleteGame = async () => {
     try {
-      const { error } = await supabase.from('games').update({ finished_at: new Date().toISOString() }).eq('id', id)
+      const { error } = await supabase.from('games').update({ finished_at: new Date().toISOString() }).eq('id', game.id)
 
       if (error) throw error
-      onDelete(id)
+      onDelete(game.id)
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : t('gameCard.deleteError'))
     }
   }
 
-  const switchTurn = async (id: string) => {
+  const switchTurn = async () => {
     try {
       const updates = {
         is_my_turn: !game.is_my_turn,
         ...(game.is_my_turn && { posts_written_by_me: game.posts_written_by_me + 1 })
       }
 
-      const { error } = await supabase.from('games').update(updates).eq('id', id)
+      const { error } = await supabase.from('games').update(updates).eq('id', game.id)
 
       if (error) throw error
       onUpdate({ ...game, ...updates })
@@ -114,8 +114,8 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
         {error && <p className="text-sm text-red-500">{error}</p>}
       </CardContent>
       <CardFooter className="flex justify-around">
-        <Button onClick={() => switchTurn(game.id)}>{t('gameCard.switchTurn')}</Button>
-        <Button onClick={() => deleteGame(game.id)}>{t('gameCard.finishGame')}</Button>
+        <Button onClick={switchTurn}>{t('gameCard.switchTurn')}</Button>
+        <Button onClick={deleteGame}>{t('gameCard.finishGame')}</Button>
       </CardFooter>
     </Card>
   )
