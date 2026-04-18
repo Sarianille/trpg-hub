@@ -58,6 +58,9 @@ export function GameList() {
   const gamesWaitingForMe = sortedGames.filter(game => game.is_my_turn)
   const gamesWaitingForOthers = sortedGames.filter(game => !game.is_my_turn)
 
+  const handleDelete = (id: string) => setGames(prev => prev.filter(g => g.id !== id))
+  const handleUpdate = (updatedGame: Game) => setGames(prev => prev.map(g => g.id === updatedGame.id ? updatedGame : g))
+
   const renderColumn = (title: string, games: Game[]) => (
     <div className="flex flex-col gap-2 w-full items-center">
       <h2 className="text-lg font-semibold mb-2">{title}</h2>
@@ -65,8 +68,8 @@ export function GameList() {
         <GameCard 
           key={game.id}
           game={game}
-          onDelete={(id: string) => setGames(prev => prev.filter(g => g.id !== id))}
-          onUpdate={(updatedGame: Game) => setGames(prev => prev.map(g => g.id === updatedGame.id ? updatedGame : g))}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate}
         />
       ))}
     </div>
