@@ -23,11 +23,9 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
   const deleteGame = async (id: string) => {
     try {
       const { error } = await supabase.from('games').update({ finished_at: new Date().toISOString() }).eq('id', id)
-      if (error) {
-        throw error
-      } else {
-        onDelete(id)
-      }
+
+      if (error) throw error
+      onDelete(id)
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : t('gameCard.deleteError'))
     }
