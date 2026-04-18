@@ -7,14 +7,13 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { Sun, Moon } from 'lucide-react'
 import { useTheme } from '@/components/ThemeProvider'
 import { useTranslation } from 'react-i18next'
-import i18n from '@/lib/i18n'
 import { FeedbackForm } from '@/components/FeedbackForm'
 
 export function Navbar() {
   const [session, setSession] = useState<Session | null>(null)
 
   const { theme, setTheme } = useTheme()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const navigate = useNavigate()
 
