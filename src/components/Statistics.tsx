@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 export function Statistics() {
-  const [stats, setStats] = useState<Game[]>([])
+  const [games, setGames] = useState<Game[]>([])
   const [error, setError] = useState<string | null>(null)
   const [isInitialized, setIsInitialized] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -23,7 +23,7 @@ export function Statistics() {
         const { data, error } = await supabase.from('games').select('*')
 
         if (error) throw error
-        setStats(data)
+        setGames(data)
       } catch (error: unknown) {
         setError(error instanceof Error ? error.message : 'generic')
       } finally {
@@ -52,25 +52,25 @@ export function Statistics() {
     return () => { if (subscription) supabase.removeChannel(subscription) }
   }, [])
 
-  const activeGames = stats.filter(s => !s.finished_at)
-  const finishedGames = stats.filter(s => s.finished_at)
-  const tags = Array.from(new Set(stats.map(s => s.tag).filter(Boolean)))
+  const activeGames = games.filter(s => !s.finished_at)
+  const finishedGames = games.filter(s => s.finished_at)
+  const tags = Array.from(new Set(games.map(s => s.tag).filter(Boolean)))
 
   const perTagCount = (predicate: (game: Game) => boolean) =>
     tags
-      .map(tag => ({ tag, count: stats.filter(s => s.tag === tag && predicate(s)).length }))
+      .map(tag => ({ tag, count: games.filter(s => s.tag === tag && predicate(s)).length }))
       .filter(s => s.count > 0)
 
   const perTagSum = (selector: (game: Game) => number) =>
     tags
-      .map(tag => ({ tag, count: stats.filter(s => s.tag === tag).reduce((sum, stat) => sum + selector(stat), 0) }))
+      .map(tag => ({ tag, count: games.filter(s => s.tag === tag).reduce((sum, stat) => sum + selector(stat), 0) }))
       .filter(s => s.count > 0)
 
   const tagStats = tags.map(tag => ({
     tag,
     activeGames: activeGames.filter(s => s.tag === tag).length,
     finishedGames: finishedGames.filter(s => s.tag === tag).length,
-    postsWrittenByMe: stats.filter(s => s.tag === tag).reduce((sum, stat) => sum + stat.posts_written_by_me, 0),
+    postsWrittenByMe: games.filter(s => s.tag === tag).reduce((sum, stat) => sum + stat.posts_written_by_me, 0),
     waitingForMe: activeGames.filter(s => s.tag === tag && s.is_my_turn).length,
     waitingForOthers: activeGames.filter(s => s.tag === tag && !s.is_my_turn).length,
   }))
@@ -102,7 +102,7 @@ export function Statistics() {
                 <p key={s.tag}>{s.tag}: { t('statistics.finishedGames', { count: s.finishedGames })}</p>
               ))}
             </div>
-            <p>{t('statistics.postsWritten', { count: stats.reduce((sum, stat) => sum + stat.posts_written_by_me, 0) })}</p>
+            <p>{t('statistics.postsWritten', { count: games.reduce((sum, stat) => sum + stat.posts_written_by_me, 0) })}</p>
             <div className="text-sm text-muted-foreground ml-2">
               {isExpanded && tagStats.filter(s => s.postsWrittenByMe > 0).map(s => (
                 <p key={s.tag}>{s.tag}: { t('statistics.postsWritten', { count: s.postsWrittenByMe })}</p>
