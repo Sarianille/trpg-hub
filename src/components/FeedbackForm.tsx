@@ -27,14 +27,14 @@ export function FeedbackForm() {
 
   const handleFeedbackSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsLoading(true)
     setError(null)
 
     if(!message.trim()) {
       setError(t('feedback.messageRequired'))
-      setIsLoading(false)
       return
     }
+
+    setIsLoading(true)
 
     try {
       const base64Attachments = await Promise.all(
@@ -48,13 +48,10 @@ export function FeedbackForm() {
         body: { message, type, attachments: base64Attachments }
       }) 
 
-      if (error) {
-        throw error
-      } else {
-        setMessage('')
-        setAttachments([])
-        setOpen(false)
-      }
+      if (error) throw error
+      setMessage('')
+      setAttachments([])
+      setOpen(false)
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : t('feedback.error'))
     } finally {
