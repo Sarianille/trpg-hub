@@ -78,7 +78,7 @@ export function Statistics() {
         </Button>
       </CardHeader>
       <CardContent>
-        {!isInitialized && t('statistics.loading')}
+        {!isInitialized && <p>t('statistics.loading')</p>}
         {error && <p className="text-sm text-red-500">{error === 'generic' ? t('statistics.error') : error}</p>}
         {isInitialized && (
           <>
