@@ -66,14 +66,33 @@ export function Statistics() {
       .map(tag => ({ tag, count: games.filter(s => s.tag === tag).reduce((sum, stat) => sum + selector(stat), 0) }))
       .filter(s => s.count > 0)
 
-  const tagStats = tags.map(tag => ({
-    tag,
-    activeGames: activeGames.filter(s => s.tag === tag).length,
-    finishedGames: finishedGames.filter(s => s.tag === tag).length,
-    postsWrittenByMe: games.filter(s => s.tag === tag).reduce((sum, stat) => sum + stat.posts_written_by_me, 0),
-    waitingForMe: activeGames.filter(s => s.tag === tag && s.is_my_turn).length,
-    waitingForOthers: activeGames.filter(s => s.tag === tag && !s.is_my_turn).length,
-  }))
+  const stats = [
+    {
+      labelKey: 'statistics.activeGames',
+      total: activeGames.length,
+      breakdown: perTagCount(s => !s.finished_at),
+    },
+    {
+      labelKey: 'statistics.finishedGames',
+      total: finishedGames.length,
+      breakdown: perTagCount(s => !!s.finished_at),
+    },
+    {
+      labelKey: 'statistics.postsWritten',
+      total: games.reduce((sum, stat) => sum + stat.posts_written_by_me, 0),
+      breakdown: perTagSum(s => s.posts_written_by_me),
+    },
+    {
+      labelKey: 'statistics.waitingForMe',
+      total: activeGames.filter(stat => stat.is_my_turn).length,
+      breakdown: perTagCount(s => !s.finished_at && s.is_my_turn),
+    },
+    {
+      labelKey: 'statistics.waitingForOthers',
+      total: activeGames.filter(stat => !stat.is_my_turn).length,
+      breakdown: perTagCount(s => !s.finished_at && !s.is_my_turn),
+    }
+  ]
 
   return (
     <Card className="w-5/6 md:w-100">
@@ -88,40 +107,18 @@ export function Statistics() {
       <CardContent>
         {!isInitialized && <p>t('statistics.loading')</p>}
         {error && <p className="text-sm text-red-500">{error === 'generic' ? t('statistics.error') : error}</p>}
-        {isInitialized && (
-          <>
-            <p>{t('statistics.activeGames', { count: activeGames.length })}</p>
-            <div className="text-sm text-muted-foreground ml-2">
-              {isExpanded && tagStats.filter(s => s.activeGames > 0).map(s => (
-                <p key={s.tag}>{s.tag}: { t('statistics.activeGames', { count: s.activeGames })}</p>
-              ))}
-            </div>
-            <p>{t('statistics.finishedGames', { count: finishedGames.length })}</p>
-            <div className="text-sm text-muted-foreground ml-2">
-              {isExpanded && tagStats.filter(s => s.finishedGames > 0).map(s => (
-                <p key={s.tag}>{s.tag}: { t('statistics.finishedGames', { count: s.finishedGames })}</p>
-              ))}
-            </div>
-            <p>{t('statistics.postsWritten', { count: games.reduce((sum, stat) => sum + stat.posts_written_by_me, 0) })}</p>
-            <div className="text-sm text-muted-foreground ml-2">
-              {isExpanded && tagStats.filter(s => s.postsWrittenByMe > 0).map(s => (
-                <p key={s.tag}>{s.tag}: { t('statistics.postsWritten', { count: s.postsWrittenByMe })}</p>
-              ))}
-            </div>
-            <p>{t('statistics.waitingForMe', { count: activeGames.filter(stat => stat.is_my_turn).length })}</p>
-            <div className="text-sm text-muted-foreground ml-2">
-              {isExpanded && tagStats.filter(s => s.waitingForMe > 0).map(s => (
-                <p key={s.tag}>{s.tag}: { t('statistics.waitingForMe', { count: s.waitingForMe })}</p>
-              ))}
-            </div>
-            <p>{t('statistics.waitingForOthers', { count: activeGames.filter(stat => !stat.is_my_turn).length })}</p>
-            <div className="text-sm text-muted-foreground ml-2">
-              {isExpanded && tagStats.filter(s => s.waitingForOthers > 0).map(s => (
-                <p key={s.tag}>{s.tag}: { t('statistics.waitingForOthers', { count: s.waitingForOthers })}</p>
-              ))}
-            </div>
-          </>
-        )}
+        {isInitialized && stats.map(({ labelKey, total, breakdown }) => (
+          <div key={labelKey}>
+            <p>{ t(labelKey, { count: total }) }</p>
+            {isExpanded && breakdown.length > 0 && (
+              <div className="text-sm text-muted-foreground ml-2">
+                {breakdown.map(({ tag, count }) => (
+                  <p key={tag}>{tag}: { t(labelKey, { count }) }</p>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
       </CardContent>
     </Card>
   )
