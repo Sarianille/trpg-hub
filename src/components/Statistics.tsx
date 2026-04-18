@@ -22,11 +22,8 @@ export function Statistics() {
 
         const { data, error } = await supabase.from('games').select('*')
 
-        if (error) {
-          throw error
-        } else {
-          setStats(data)
-        }
+        if (error) throw error
+        setStats(data)
       } catch (error: unknown) {
         setError(error instanceof Error ? error.message : 'generic')
       } finally {
