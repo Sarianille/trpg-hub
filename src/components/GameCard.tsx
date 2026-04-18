@@ -82,7 +82,7 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
             className="mb-2"
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            onBlur={() => saveNote()}
+            onBlur={saveNote}
           />
         ) : (
           <p 
