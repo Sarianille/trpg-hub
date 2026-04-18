@@ -19,9 +19,10 @@ export function FeedbackForm() {
 
   const { t } = useTranslation()
 
-  const toBase64 = (file: File) => new Promise<string>((resolve) => {
+  const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve((reader.result as string).split(',')[1])
+    reader.onerror = () => reject(reader.error)
     reader.readAsDataURL(file)
   })
 
