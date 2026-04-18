@@ -33,13 +33,10 @@ export function AddGameForm() {
         tag: tag || null,
       })
 
-      if (error) {
-        throw error
-      } else {
-        setMyCharacter('')
-        setOtherCharacters('')
-        setTag('')
-      }
+      if (error) throw error
+      setMyCharacter('')
+      setOtherCharacters('')
+      setTag('')
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : t('addGame.error'))
     } finally {
