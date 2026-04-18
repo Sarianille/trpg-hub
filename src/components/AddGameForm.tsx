@@ -19,8 +19,19 @@ export function AddGameForm() {
 
   const handleAddGame = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsLoading(true)
     setError(null)
+
+    const parsedOthers = otherCharacters
+      .split(',')
+      .map(c => c.trim())
+      .filter(Boolean)
+
+    if (parsedOthers.length === 0) {
+      setError(t('addGame.otherCharactersRequired'))
+      return
+    }
+
+    setIsLoading(true)
 
     try {
       const { data: { user } } = await supabase.auth.getUser()
@@ -28,7 +39,7 @@ export function AddGameForm() {
       const { error } = await supabase.from('games').insert({
         user_id: user?.id,
         my_character: myCharacter,
-        other_characters: otherCharacters.split(',').map(c => c.trim()),
+        other_characters: parsedOthers,
         is_my_turn: true,
         tag: tag || null,
       })

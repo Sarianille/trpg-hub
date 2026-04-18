@@ -85,6 +85,7 @@ i18n.use(initReactI18next).init({
         tagPlaceholder: "Site name",
         submit: "Add Game",
         submitting: "Adding Game...",
+        otherCharactersRequired: "At least one character is required",
         error: "Error adding game. Please try again.",
       },
       gameList: {
@@ -208,6 +209,7 @@ i18n.use(initReactI18next).init({
         tagPlaceholder: "Jméno stránky",
         submit: "Přidat hru",
         submitting: "Přidávání hry...",
+        otherCharactersRequired: "Je vyžadován alespoň jeden charakter",
         error: "Chyba při přidávání hry. Zkuste to prosím znovu.",
       },
       gameList: {
@@ -331,6 +333,7 @@ i18n.use(initReactI18next).init({
         tagPlaceholder: "Meno stránky",
         submit: "Pridať hru",
         submitting: "Pridávanie hry...",
+        otherCharactersRequired: "Vyžaduje sa aspoň jeden charakter",
         error: "Chyba pri pridávaní hry. Skúste to prosím znovu.",
       },
       gameList: {
