@@ -67,8 +67,8 @@ export function GameList() {
           <GameCard 
             key={game.id}
             game={game}
-            onDelete={(id: string) => setGames(games.filter(g => g.id !== id))}
-            onUpdate={(updatedGame: Game) => setGames(games.map(g => g.id === updatedGame.id ? updatedGame : g))}
+            onDelete={(id: string) => setGames(prev => prev.filter(g => g.id !== id))}
+            onUpdate={(updatedGame: Game) => setGames(prev => prev.map(g => g.id === updatedGame.id ? updatedGame : g))}
           />
         ))}
       </div>
@@ -78,8 +78,8 @@ export function GameList() {
           <GameCard 
             key={game.id}
             game={game}
-            onDelete={(id: string) => setGames(games.filter(g => g.id !== id))}
-            onUpdate={(updatedGame: Game) => setGames(games.map(g => g.id === updatedGame.id ? updatedGame : g))}
+            onDelete={(id: string) => setGames(prev => prev.filter(g => g.id !== id))}
+            onUpdate={(updatedGame: Game) => setGames(prev => prev.map(g => g.id === updatedGame.id ? updatedGame : g))}
           />
         ))}
       </div>
