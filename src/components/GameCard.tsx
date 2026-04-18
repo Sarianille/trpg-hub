@@ -48,6 +48,11 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
   }
 
   const saveNote = async () => {
+    if (note === (game.note ?? '')) {
+      setEditingNote(false)
+      return
+    }
+
     try {
       const { error } = await supabase.from('games').update({ note }).eq('id', game.id)
 
