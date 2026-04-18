@@ -39,7 +39,7 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
         is_my_turn: !game.is_my_turn,
         ...(game.is_my_turn && { posts_written_by_me: game.posts_written_by_me + 1 })
       }
-      
+
       const { error } = await supabase.from('games').update(updates).eq('id', id)
 
       if (error) throw error
@@ -49,17 +49,23 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
     }
   }
 
+  const saveNote = async () => {
+    try {
+      const { error } = await supabase.from('games').update({ note }).eq('id', game.id)
+
+      if (error) throw error
+      onUpdate({ ...game, note })
+      setEditingNote(false)
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : t('gameCard.saveNoteError'))
+    }
+  }
+
   const elapsedTime = (updatedAt: string) => {
     const elapsed = Math.max(0, Date.now() - new Date(updatedAt).getTime())
     const rtf = new Intl.RelativeTimeFormat(i18n.language, { numeric: 'auto' })
     const days = Math.floor(elapsed / (1000 * 60 * 60 * 24))
     return rtf.format(-days, 'day')
-  }
-
-  const saveNote = async () => {
-    await supabase.from('games').update({ note: note }).eq('id', game.id)
-    onUpdate({ ...game, note })
-    setEditingNote(false)
   }
   
   return (

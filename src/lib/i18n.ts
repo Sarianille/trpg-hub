@@ -103,6 +103,7 @@ i18n.use(initReactI18next).init({
         finishGame: "Finish game",
         deleteError: "Error deleting game. Please try again.",
         switchTurnError: "Error switching turn. Please try again.",
+        saveNoteError: "Error saving note. Please try again.",
       },
       feedback: {
         trigger: "Feedback",
@@ -227,6 +228,7 @@ i18n.use(initReactI18next).init({
         finishGame: "Ukončit hru",
         deleteError: "Chyba při mazání hry. Zkuste to prosím znovu.",
         switchTurnError: "Chyba při předávání tahu. Zkuste to prosím znovu.",
+        saveNoteError: "Chyba při ukládání poznámky. Zkuste to prosím znovu.",
       },
       feedback: {
         trigger: "Zpětná vazba",
@@ -351,6 +353,7 @@ i18n.use(initReactI18next).init({
         finishGame: "Ukončiť hru",
         deleteError: "Chyba pri mazanie hry. Skúste to prosím znovu.",
         switchTurnError: "Chyba pri predávaní tahu. Skúste to prosím znovu.",
+        saveNoteError: "Chyba pri ukládaní poznámky. Skúste to prosím znovu.",
       },
       feedback: {
         trigger: "Spätná väzba",
