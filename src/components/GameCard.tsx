@@ -39,14 +39,13 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
         is_my_turn: !game.is_my_turn,
         ...(game.is_my_turn && { posts_written_by_me: game.posts_written_by_me + 1 })
       }
+      
       const { error } = await supabase.from('games').update(updates).eq('id', id)
-      if (error) {
-        throw error
-      } else {
-        onUpdate({ ...game, ...updates })
-      } 
+
+      if (error) throw error
+      onUpdate({ ...game, ...updates })
     } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : t('gameCard.switchTurnError'))
+      setError(error instanceof Error ? error.message : t('gameCard.switchTurnError'))
     }
   }
 
