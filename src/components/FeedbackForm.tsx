@@ -70,7 +70,7 @@ export function FeedbackForm() {
             <DialogDescription>{t('feedback.description')}</DialogDescription>
           </DialogHeader>
           <Label>{t('feedback.typeLabel')}</Label>
-          <RadioGroup value={type} onValueChange={(value) => setType(value)}>
+          <RadioGroup value={type} onValueChange={setType}>
             <div className="flex items-center gap-2">
               <RadioGroupItem value="bug" id="bug-type" />
               <Label htmlFor="bug-type">{t('feedback.bug')}</Label>
