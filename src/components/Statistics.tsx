@@ -54,7 +54,7 @@ export function Statistics() {
 
   const activeGames = games.filter(s => !s.finished_at)
   const finishedGames = games.filter(s => s.finished_at)
-  const tags = Array.from(new Set(games.map(s => s.tag).filter(Boolean)))
+  const tags = Array.from(new Set(games.map(s => s.tag).filter((t): t is string => !!t)))
 
   const perTagCount = (predicate: (game: Game) => boolean) =>
     tags
