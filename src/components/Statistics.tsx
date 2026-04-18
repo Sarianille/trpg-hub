@@ -55,6 +55,17 @@ export function Statistics() {
   const activeGames = stats.filter(s => !s.finished_at)
   const finishedGames = stats.filter(s => s.finished_at)
   const tags = Array.from(new Set(stats.map(s => s.tag).filter(Boolean)))
+
+  const perTagCount = (predicate: (game: Game) => boolean) =>
+    tags
+      .map(tag => ({ tag, count: stats.filter(s => s.tag === tag && predicate(s)).length }))
+      .filter(s => s.count > 0)
+
+  const perTagSum = (selector: (game: Game) => number) =>
+    tags
+      .map(tag => ({ tag, count: stats.filter(s => s.tag === tag).reduce((sum, stat) => sum + selector(stat), 0) }))
+      .filter(s => s.count > 0)
+
   const tagStats = tags.map(tag => ({
     tag,
     activeGames: activeGames.filter(s => s.tag === tag).length,
