@@ -28,7 +28,7 @@ export function Statistics() {
           setStats(data)
         }
       } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : 'error')
+        setError(error instanceof Error ? error.message : 'generic')
       } finally {
         setIsInitialized(true)
       }
@@ -46,7 +46,7 @@ export function Statistics() {
           .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchStats())
           .subscribe()
       } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : 'error')
+        setError(error instanceof Error ? error.message : 'generic')
       }
     }
     
@@ -79,7 +79,7 @@ export function Statistics() {
       </CardHeader>
       <CardContent>
         {!isInitialized && t('statistics.loading')}
-        {error && <p className="text-sm text-red-500">{error === 'error' ? t('statistics.error') : error}</p>}
+        {error && <p className="text-sm text-red-500">{error === 'generic' ? t('statistics.error') : error}</p>}
         {isInitialized && (
           <>
             <p>{t('statistics.activeGames', { count: activeGames.length })}</p>
