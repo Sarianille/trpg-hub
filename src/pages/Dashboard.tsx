@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { supabase } from '@/lib/client'
+import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { AddGameForm } from '@/components/AddGameForm'
 import { GameList } from '@/components/GameList'
 import { Statistics } from '@/components/Statistics'
@@ -8,18 +6,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export default function Dashboard() {
-  const [isChecking, setIsChecking] = useState(true)
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { error } = await supabase.auth.getUser()
-      if (error) navigate('/login')
-      else setIsChecking(false)
-    }
-    checkAuth()
-  }, [navigate])
+  const isChecking = useAuthGuard({ requireAuth: true, redirectTo: '/login' })
 
   if (isChecking) {
     return (
