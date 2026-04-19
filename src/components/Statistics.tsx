@@ -1,56 +1,15 @@
-import { useEffect, useState } from "react"
-import { supabase } from "@/lib/client"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useGames } from "@/hooks/useGames"
 import type { Game } from "@/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 export function Statistics() {
-  const [games, setGames] = useState<Game[]>([])
-  const [error, setError] = useState<string | null>(null)
-  const [isInitialized, setIsInitialized] = useState(false)
+  const { games, error, isInitialized } = useGames({ channelName: 'public:stats', includeFinished: true })
   const [isExpanded, setIsExpanded] = useState(false)
 
   const { t } = useTranslation()
-      
-  useEffect(() => {
-    let subscription: ReturnType<typeof supabase.channel> | null = null
-
-    const fetchGames = async () => {
-      try {
-        setError(null)
-
-        const { data, error } = await supabase.from('games').select('*')
-
-        if (error) throw error
-        setGames(data)
-      } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : 'generic')
-      } finally {
-        setIsInitialized(true)
-      }
-    }
-
-    const setup = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession()
-        if (session) supabase.realtime.setAuth(session.access_token)
-      
-        await fetchGames()
-
-        subscription = supabase
-          .channel('public:stats')
-          .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchGames())
-          .subscribe()
-      } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : 'generic')
-      }
-    }
-    
-    setup()
-
-    return () => { if (subscription) supabase.removeChannel(subscription) }
-  }, [])
 
   const activeGames = games.filter(g => !g.finished_at)
   const finishedGames = games.filter(g => g.finished_at)

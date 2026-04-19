@@ -1,56 +1,13 @@
-import { useState, useEffect } from "react"
-import { supabase } from "@/lib/client"
 import { useTranslation } from "react-i18next"
+import { useGames } from "@/hooks/useGames"
 import type { Game } from "@/types"
 import { Card } from "@/components/ui/card"
 import { GameCard } from "@/components/GameCard"
 
 export function GameList() {
-  const [games, setGames] = useState<Game[]>([])
-  const [error, setError] = useState<string | null>(null)
-  const [isInitialized, setIsInitialized] = useState(false)
+  const { games, setGames, error, isInitialized } = useGames({ channelName: 'public:games' })
 
   const { t } = useTranslation()
-
-  useEffect(() => {
-    let subscription: ReturnType<typeof supabase.channel> | null = null
-
-    const fetchGames = async () => {
-      try {
-        setError(null)
-
-        const { data, error } = await supabase.from('games').select('*').is('finished_at', null)
-
-        if (error) throw error
-        setGames(data)
-      } catch (error: unknown) {
-        // To avoid a dependency on t, we use a generic error key and handle the translation in the render
-        setError(error instanceof Error ? error.message : 'generic')
-      } finally {
-        setIsInitialized(true)
-      }
-    }
-
-    const setup = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession()
-        if (session) supabase.realtime.setAuth(session.access_token)
-      
-        await fetchGames()
-
-        subscription = supabase
-          .channel('public:games')
-          .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchGames())
-          .subscribe()
-      } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : 'generic')
-      }
-    }
-    
-    setup()
-
-    return () => { if (subscription) supabase.removeChannel(subscription) }
-  }, [])
 
   const sortedGames = [...games].sort((a, b) => new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime())
   const gamesWaitingForMe = sortedGames.filter(game => game.is_my_turn)
