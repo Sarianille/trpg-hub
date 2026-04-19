@@ -21,11 +21,8 @@ export function GameList() {
 
         const { data, error } = await supabase.from('games').select('*')
 
-        if (error) {
-          throw error
-        } else {
-          setGames(data.filter(g => !g.finished_at))
-        }
+        if (error) throw error
+        setGames(data.filter(g => !g.finished_at))
       } catch (error: unknown) {
         setError(error instanceof Error ? error.message : 'generic')
       } finally {
