@@ -1,73 +1,61 @@
-# React + TypeScript + Vite
+# TRPG Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web application for text-based role-playing game (TRPG) players to track their games and monitor their monthly activity.
 
-Currently, two official plugins are available:
+Juggling multiple simultaneous roleplay threads across different sites makes it easy to lose track of where your active games are, whose turn it is, how long it's been since the last post, or how active you've been in the past month. TRPG Hub keeps all of that in one place.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+[Try it out](https://trpg-hub.vercel.app/)
 
-## React Compiler
+## Features
+- **Turn tracking** - quickly see which games are waiting on you vs. other players, sorted by how long they've been waiting
+- **Inline notes** - add private notes to each game to keep track of important details, plot threads, or reminders directly on each game card
+- **Tag-based statistics** - group games by site and see monthly breakdowns of active games, finished games, posts written, and more
+- **Realtime updates** - changes sync instantly across open tabs and devices
+- **Dark/light theme support**
+- **Multi-language support** - Czech, Slovak, and English
+- **In-app feedback** - report bugs or suggest features without leaving the app
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+## Tech Stack
+- **Frontend** - React, TypeScript, Vite, Tailwind CSS
+- **UI** - shadcn/ui, Base UI, Lucide icons
+- **Backend** - Supabase (auth, Postgres, realtime, edge functions)
+- **Other** - React Router, i18next
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## How It Works
+- **Auth & data** - Supabase handles authentication, Postgres storage, row-level security
+- **Realtime sync** - Supabase handles subscriptions that push updates to all connected clients when any game changes
+- **Monthly reset** - A scheduled cron job runs on the 1st of each month, purging finished games and resetting post counters
+- **Feedback delivery** - The in-app feedback form invokes a Supabase edge function that sends the report via email to the developer
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+> **Note:** This is a personal project and running it locally requires setting up a Supabase project with a specific database schema, row-level security policies, and edge functions. The setup steps below cover the frontend only.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Prerequisites
+- Node.js (v18 or later)
+- Supabase account and project
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Installation
+\`\`\`bash
+npm install
+\`\`\`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Environment Variables
+Create a \`.env\` file in the root of the project and add the following variables:
+\`\`\`env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+VITE_SITE_URL=http://localhost:5173
+\`\`\`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Running the Application Locally
+\`\`\`bash
+npm run dev
+\`\`\`
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Attributions
+Components from [Supabase UI](https://ui.supabase.com/) (licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)) and [shadcn/ui](https://ui.shadcn.com/) (licensed under [MIT](https://opensource.org/licenses/MIT)). Icons from [Lucide](https://lucide.dev/) (licensed under [MIT](https://opensource.org/licenses/MIT)).
