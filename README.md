@@ -37,22 +37,22 @@ Juggling multiple simultaneous roleplay threads across different sites makes it 
 - Supabase account and project
 
 ### Installation
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 ### Environment Variables
-Create a \`.env\` file in the root of the project and add the following variables:
-\`\`\`env
+Create a `.env` file in the root of the project and add the following variables:
+```env
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
 VITE_SITE_URL=http://localhost:5173
-\`\`\`
+```
 
 ### Running the Application Locally
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
