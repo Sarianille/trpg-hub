@@ -1,20 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { LoginForm } from '@/components/login-form'
-import { SignUpForm } from '@/components/sign-up-form'
-import { ForgotPasswordForm } from '@/components/forgot-password-form'
-import { UpdatePasswordForm } from '@/components/update-password-form'
 import { Navbar } from '@/components/Navbar'
 import Dashboard from '@/pages/Dashboard'
+import Login from '@/pages/Login'
+import SignUp from '@/pages/SignUp'
+import ForgotPassword from '@/pages/ForgotPassword'
+import UpdatePassword from '@/pages/UpdatePassword'
 
 export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/sign-up" element={<SignUpForm />} />
-        <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-        <Route path="/update-password" element={<UpdatePasswordForm />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/update-password" element={<UpdatePassword />} />
         <Route path="/" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
