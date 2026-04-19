@@ -121,6 +121,14 @@ i18n.use(initReactI18next).init({
         submitting: "Submitting...",
         messageRequired: "Your feedback message is required.",
         error: "An error has occurred",
+      },
+      dashboard: {
+        tabs: {
+          add: "Add Game",
+          yourTurn: "Your Turn",
+          others: "Waiting for Others",
+          statistics: "Statistics",
+        }
       }
     }},
     cs : { translation: {
@@ -246,6 +254,14 @@ i18n.use(initReactI18next).init({
         submitting: "Odesílání...",
         messageRequired: "Text zpětné vazby je povinný.",
         error: "Nastala chyba",
+      },
+      dashboard: {
+        tabs: {
+          add: "Přidat hru",
+          yourTurn: "Jste na řadě",
+          others: "Čeká se na ostatní",
+          statistics: "Statistiky",
+        }
       }
     }},
     sk : { translation: {
@@ -371,6 +387,14 @@ i18n.use(initReactI18next).init({
         submitting: "Odosielanie...",
         messageRequired: "Text spätné väzby je povinný.",
         error: "Nastala chyba",
+      },
+      dashboard: {
+        tabs: {
+          add: "Pridať hru",
+          yourTurn: "Ste na rade",
+          others: "Čaká sa na ostatných",
+          statistics: "Štatistiky"
+        }
       }
     }}
   },
