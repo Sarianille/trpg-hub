@@ -16,7 +16,7 @@ export function Statistics() {
   useEffect(() => {
     let subscription: ReturnType<typeof supabase.channel> | null = null
 
-    const fetchStats = async () => {
+    const fetchGames = async () => {
       try {
         setError(null)
 
@@ -36,11 +36,11 @@ export function Statistics() {
         const { data: { session } } = await supabase.auth.getSession()
         if (session) supabase.realtime.setAuth(session.access_token)
       
-        await fetchStats()
+        await fetchGames()
 
         subscription = supabase
           .channel('public:stats')
-          .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchStats())
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchGames())
           .subscribe()
       } catch (error: unknown) {
         setError(error instanceof Error ? error.message : 'generic')
