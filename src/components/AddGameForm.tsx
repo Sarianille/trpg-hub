@@ -26,6 +26,7 @@ export function AddGameForm() {
       .map(c => c.trim())
       .filter(Boolean)
 
+    // Ensure at least one character is entered and " , " won't bypass validation
     if (parsedOthers.length === 0) {
       setError(t('addGame.otherCharactersRequired'))
       return

@@ -22,6 +22,7 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
 
   const deleteGame = async () => {
     try {
+      // Soft delete, gets wiped by a monthly cron job
       const { error } = await supabase.from('games').update({ finished_at: new Date().toISOString() }).eq('id', game.id)
 
       if (error) throw error
@@ -48,6 +49,7 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
   }
 
   const saveNote = async () => {
+    // Early return for unchanged notes to avoid unnecessary DB calls
     if (note === (game.note ?? '')) {
       setEditingNote(false)
       return

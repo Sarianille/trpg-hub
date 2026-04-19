@@ -30,6 +30,10 @@ export function FeedbackForm() {
     e.preventDefault()
     setError(null)
 
+    /* 
+      Due to DialogContent (modal) being wrapped in a form, the "required" attribute doesn't trigger
+      the native validation, so we need to do a manual check
+    */
     if(!message.trim()) {
       setError(t('feedback.messageRequired'))
       return

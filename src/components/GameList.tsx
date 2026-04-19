@@ -24,6 +24,7 @@ export function GameList() {
         if (error) throw error
         setGames(data)
       } catch (error: unknown) {
+        // To avoid a dependency on t, we use a generic error key and handle the translation in the render
         setError(error instanceof Error ? error.message : 'generic')
       } finally {
         setIsInitialized(true)
