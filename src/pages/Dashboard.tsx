@@ -2,27 +2,12 @@ import { useAuthGuard } from '@/hooks/useAuthGuard'
 import { AddGameForm } from '@/components/AddGameForm'
 import { GameList } from '@/components/GameList'
 import { Statistics } from '@/components/Statistics'
-import { Card, CardHeader, CardContent } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
+import { PageSkeleton } from '@/components/PageSkeleton'
 
 export default function Dashboard() {
   const isChecking = useAuthGuard({ requireAuth: true, redirectTo: '/login' })
 
-  if (isChecking) {
-    return (
-      <div className="flex flex-col gap-6 min-h-[calc(100vh-130px)] items-center justify-center">
-        <Card className="w-5/6 md:w-100">
-          <CardHeader>
-            <Skeleton className="h-4 w-2/3" />
-            <Skeleton className="h-4 w-1/2" />
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="aspect-video w-full" />
-          </CardContent>
-        </Card>
-      </div>
-    )
-  }
+  if (isChecking) return <PageSkeleton />
 
   return (
     <div className="flex flex-col md:flex-row items-start gap-6 py-8 px-4">
