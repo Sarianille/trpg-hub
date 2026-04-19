@@ -4,7 +4,11 @@ import type { Game } from "@/types"
 import { Card } from "@/components/ui/card"
 import { GameCard } from "@/components/GameCard"
 
-export function GameList() {
+type GameListProps = {
+  filter?: 'yourTurn' | 'others' | 'all'
+}
+
+export function GameList({ filter = 'all' }: GameListProps) {
   const { games, setGames, error, isInitialized } = useGames({ channelName: 'public:games' })
 
   const { t } = useTranslation()
@@ -33,8 +37,8 @@ export function GameList() {
   return (
     <Card className="flex flex-col gap-2 w-3/4 items-center md:max-h-[calc(100vh-130px)] md:overflow-y-auto custom-scrollbar">
       <div className="flex flex-col md:flex-row gap-2 w-full items-start">
-        {renderColumn(t('gameList.yourTurn'), gamesWaitingForMe)}
-        {renderColumn(t('gameList.waitingForOthers'), gamesWaitingForOthers)}
+        {(filter === 'all' || filter === 'yourTurn') && renderColumn(t('gameList.yourTurn'), gamesWaitingForMe)}
+        {(filter === 'all' || filter === 'others') && renderColumn(t('gameList.waitingForOthers'), gamesWaitingForOthers)}
       </div>
       {!isInitialized && <p>{t('gameList.loading')}</p>}
       {error && <p className="text-sm text-red-500">{error === 'generic' ? t('gameList.error') : error}</p>}
