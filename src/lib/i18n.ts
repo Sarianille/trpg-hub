@@ -126,8 +126,8 @@ i18n.use(initReactI18next).init({
         tabs: {
           add: "Add Game",
           yourTurn: "Your Turn",
-          others: "Waiting for Others",
-          statistics: "Statistics",
+          others: "Waiting",
+          statistics: "Stats",
         }
       }
     }},
@@ -258,8 +258,8 @@ i18n.use(initReactI18next).init({
       dashboard: {
         tabs: {
           add: "Přidat hru",
-          yourTurn: "Jste na řadě",
-          others: "Čeká se na ostatní",
+          yourTurn: "Na řadě",
+          others: "Čeká se",
           statistics: "Statistiky",
         }
       }
@@ -391,8 +391,8 @@ i18n.use(initReactI18next).init({
       dashboard: {
         tabs: {
           add: "Pridať hru",
-          yourTurn: "Ste na rade",
-          others: "Čaká sa na ostatných",
+          yourTurn: "Na rade",
+          others: "Čaká sa",
           statistics: "Štatistiky"
         }
       }
