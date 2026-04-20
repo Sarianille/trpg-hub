@@ -12,6 +12,7 @@ import { FeedbackForm } from '@/components/FeedbackForm'
 
 export function Navbar() {
   const [session, setSession] = useState<Session | null>(null)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const { theme, setTheme } = useTheme()
   const { t, i18n } = useTranslation()
@@ -28,6 +29,7 @@ export function Navbar() {
   
   const handleLogout = async () => {
     await supabase.auth.signOut()
+    setMobileOpen(false)
     navigate('/login')
   }
 
@@ -60,7 +62,7 @@ export function Navbar() {
 
       {/* Mobile */}
       <div className="flex md:hidden">
-        <Sheet>
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger render={<Button size="icon" variant="ghost"><Menu /></Button>} />
           <SheetContent side="right" className="w-72">
             <SheetHeader>
