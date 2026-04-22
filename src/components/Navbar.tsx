@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Sun, Moon, Menu } from 'lucide-react'
-import { useTheme } from '@/components/ThemeProvider'
+import { useTheme } from '@/contexts/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import { FeedbackForm } from '@/components/FeedbackForm'
 
