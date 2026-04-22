@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { useGames } from "@/hooks/useGames"
+import { useGames } from "@/contexts/GamesContext"
 import type { Game } from "@/types"
 import { Card } from "@/components/ui/card"
 import { GameCard } from "@/components/GameCard"
@@ -9,7 +9,7 @@ type GameListProps = {
 }
 
 export function GameList({ filter = 'all' }: GameListProps) {
-  const { games, setGames, error, isInitialized } = useGames({ channelName: 'public:games' })
+  const { games, setGames, error, isInitialized } = useGames()
 
   const { t } = useTranslation()
 

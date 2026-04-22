@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useGames } from "@/hooks/useGames"
+import { useGames } from "@/contexts/GamesContext"
 import type { Game } from "@/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 export function Statistics() {
-  const { games, error, isInitialized } = useGames({ channelName: 'public:stats', includeFinished: true })
+  const { games, error, isInitialized } = useGames({ includeFinished: true })
   const [isExpanded, setIsExpanded] = useState(false)
 
   const { t } = useTranslation()
