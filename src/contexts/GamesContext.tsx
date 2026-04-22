@@ -29,6 +29,7 @@ export function GamesProvider({ children }: { children: ReactNode }) {
         if (error) throw error
         if (!cancelled) setGames(data)
       } catch (error: unknown) {
+        // To avoid a dependency on t, we use a generic error key and handle the translation in the render
         if (!cancelled) setError(error instanceof Error ? error.message : 'generic')
       } finally {
         if (!cancelled) setIsInitialized(true)
