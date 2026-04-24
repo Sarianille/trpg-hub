@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { supabase } from "@/lib/client"
+import { useAuth } from "@/contexts/AuthContext"
 import { useTranslation } from "react-i18next"
 import { Info } from "lucide-react"
 import { Button } from '@/components/ui/button'
@@ -9,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 export function AddGameForm() {
+  const { user } = useAuth()
   const [myCharacter, setMyCharacter] = useState('')
   const [otherCharacters, setOtherCharacters] = useState('')
   const [tag, setTag] = useState('')
@@ -32,13 +34,16 @@ export function AddGameForm() {
       return
     }
 
+    if (!user) {
+      setError(t('addGame.error'))
+      return
+    }
+
     setIsLoading(true)
 
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-
       const { error } = await supabase.from('games').insert({
-        user_id: user?.id,
+        user_id: user.id,
         my_character: myCharacter,
         other_characters: parsedOthers,
         is_my_turn: true,
