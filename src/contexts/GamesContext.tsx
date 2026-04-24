@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { supabase } from "@/lib/client"
+import { useAuth } from "@/contexts/AuthContext"
 import type { ReactNode } from "react"
 import type { Game } from "@/types"
 
@@ -17,7 +18,16 @@ export function GamesProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null)
   const [isInitialized, setIsInitialized] = useState(false)
 
+  const { user } = useAuth()
+  const userId = user?.id
+
   useEffect(() => {
+    if (!userId) {
+      setGames([])
+      setIsInitialized(false)
+      return
+    }
+
     let subscription: ReturnType<typeof supabase.channel> | null = null
     let cancelled = false
 
@@ -38,9 +48,6 @@ export function GamesProvider({ children }: { children: ReactNode }) {
 
     const setup = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession()
-        if (session) supabase.realtime.setAuth(session.access_token)
-
         await fetchGames()
 
         subscription = supabase
@@ -58,7 +65,7 @@ export function GamesProvider({ children }: { children: ReactNode }) {
       cancelled = true
       if (subscription) supabase.removeChannel(subscription)
     }
-  }, [])
+  }, [userId])
 
   return (
     <GamesContext.Provider value={{ games, setGames, error, isInitialized }}>
