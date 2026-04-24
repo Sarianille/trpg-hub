@@ -1,31 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/lib/client'
-import type { Session } from '@supabase/supabase-js'
 import { Button } from '@/components/ui/button'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Sun, Moon, Menu } from 'lucide-react'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useAuth } from '@/contexts/AuthContext'
 import { useTranslation } from 'react-i18next'
 import { FeedbackForm } from '@/components/FeedbackForm'
 
 export function Navbar() {
-  const [session, setSession] = useState<Session | null>(null)
+  const { session } = useAuth()
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const { theme, setTheme } = useTheme()
   const { t, i18n } = useTranslation()
 
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-
-    return () => subscription.unsubscribe()
-  }, [])
   
   const handleLogout = async () => {
     await supabase.auth.signOut()
