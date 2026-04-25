@@ -6,7 +6,7 @@ import { Info } from "lucide-react"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from "@/components/ui/label"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 export function AddGameForm() {
@@ -63,6 +63,11 @@ export function AddGameForm() {
 
   return (
     <Card className="w-5/6 md:w-100">
+      <CardHeader>
+        <CardTitle>
+          {t('addGame.title')}
+        </CardTitle>
+      </CardHeader>
       <CardContent>
         <form onSubmit={handleAddGame}>
           <div className="flex flex-col gap-6">

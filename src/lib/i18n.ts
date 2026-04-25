@@ -76,6 +76,7 @@ i18n.use(initReactI18next).init({
         error: "An error occurred"
       },
       addGame: {
+        title: "Add New Game",
         myCharacter: "Your character",
         myCharacterPlaceholder: "John Doe",
         otherCharacters: "Other characters",
@@ -217,6 +218,7 @@ i18n.use(initReactI18next).init({
         error: "Nastala chyba"
       },
       addGame: {
+        title: "Přidat novou hru",
         myCharacter: "Můj charakter",
         myCharacterPlaceholder: "Jan Novák",
         otherCharacters: "Ostatní charaktery",
@@ -358,6 +360,7 @@ i18n.use(initReactI18next).init({
         error: "Nastala chyba"
       },
       addGame: {
+        title: "Pridať novú hru",
         myCharacter: "Môj charakter",
         myCharacterPlaceholder: "Jožko Mrkvička",
         otherCharacters: "Ostatné charaktery",
