@@ -5,6 +5,7 @@ import type { Game } from "@/types"
 import { Card } from "@/components/ui/card"
 import { GameCard } from "@/components/GameCard"
 import { TagFilter } from "@/components/TagFilter"
+import { TagColorManager } from "@/components/TagColorManager"
 
 type GameListProps = {
   filter?: 'yourTurn' | 'others' | 'all'
@@ -51,6 +52,7 @@ export function GameList({ filter = 'all' }: GameListProps) {
           onSelectTag={handleSelectTag}
           onClear={() => setSelectedTags([])}
         />
+        <TagColorManager tags={tags} />
       </div>
       <div className="flex flex-col md:flex-row gap-2 w-full items-start">
         {(filter === 'all' || filter === 'yourTurn') && renderColumn(t('gameList.yourTurn'), gamesWaitingForMe)}
