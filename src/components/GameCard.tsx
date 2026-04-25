@@ -1,11 +1,13 @@
 import { useState } from "react"
 import { supabase } from "@/lib/client"
 import { useTranslation } from "react-i18next"
+import { usePreferences } from "@/contexts/PreferencesContext"
 import type { Game } from "@/types"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
+import { TAG_COLORS } from "@/lib/tagColors"
 
 type GameCardProps = {
   game: Game
@@ -19,6 +21,8 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
   const [error, setError] = useState<string | null>(null)
 
   const { t, i18n } = useTranslation()
+
+  const { tagColors } = usePreferences()
 
   const deleteGame = async () => {
     try {
@@ -93,7 +97,7 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
           <span>x</span>
           <span>{game.other_characters.join(', ')}</span>
         </CardTitle>
-        {game.tag && <Badge variant="outline">{game.tag}</Badge>}
+        {game.tag && <Badge variant="outline" className={tagColors[game.tag] ? TAG_COLORS[tagColors[game.tag]] : undefined}>{game.tag}</Badge>}
       </CardHeader>
       <CardContent>
         {editingNote ? (
