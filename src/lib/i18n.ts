@@ -129,6 +129,14 @@ i18n.use(initReactI18next).init({
           others: "Waiting",
           statistics: "Stats",
         }
+      },
+      tagFilter: {
+        title: "Filter by tag",
+        clear: "Clear filters",
+      },
+      tagColorManager: {
+        title: "Choose tag color",
+        clear: "Clear color",
       }
     }},
     cs : { translation: {
@@ -262,6 +270,14 @@ i18n.use(initReactI18next).init({
           others: "Čeká se",
           statistics: "Statistiky",
         }
+      },
+      tagFilter: {
+        title: "Filtrovat podle tagu",
+        clear: "Vymazat filtry",
+      },
+      tagColorManager: {
+        title: "Vybrat barvu tagu",
+        clear: "Vymazat barvu",
       }
     }},
     sk : { translation: {
@@ -395,6 +411,14 @@ i18n.use(initReactI18next).init({
           others: "Čaká sa",
           statistics: "Štatistiky"
         }
+      },
+      tagFilter: {
+        title: "Filtrovať podľa tagu",
+        clear: "Vymazať filtre",
+      },
+      tagColorManager: {
+        title: "Vybrať farbu tagu",
+        clear: "Vymazať farbu",
       }
     }}
   },
