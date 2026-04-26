@@ -12,7 +12,7 @@ type TagColorManagerProps = {
 }
 
 export function TagColorManager({ tags }: TagColorManagerProps) {
-  const { tagColors, setTagColor } = usePreferences();
+  const { tagColors, setTagColor, error } = usePreferences();
   const [expandedTag, setExpandedTag] = useState<string | null>(null)
 
   const { t } = useTranslation()
@@ -73,6 +73,7 @@ export function TagColorManager({ tags }: TagColorManagerProps) {
                 )
               })}
             </div>
+            {error && <p className="text-sm text-red-500">{error === 'generic' ? t('tagColorManager.error') : error}</p>}
           </div>
         </PopoverContent>
     </Popover>

@@ -138,6 +138,7 @@ i18n.use(initReactI18next).init({
       tagColorManager: {
         title: "Choose tag color",
         clear: "Clear color",
+        error: "An error has occurred",
       }
     }},
     cs : { translation: {
@@ -280,6 +281,7 @@ i18n.use(initReactI18next).init({
       tagColorManager: {
         title: "Vybrat barvu tagu",
         clear: "Vymazat barvu",
+        error: "Nastala chyba",
       }
     }},
     sk : { translation: {
@@ -422,6 +424,7 @@ i18n.use(initReactI18next).init({
       tagColorManager: {
         title: "Vybrať farbu tagu",
         clear: "Vymazať farbu",
+        error: "Nastala chyba",
       }
     }}
   },
