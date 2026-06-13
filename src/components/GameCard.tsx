@@ -5,8 +5,9 @@ import { usePreferences } from "@/contexts/PreferencesContext"
 import type { Game } from "@/types"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardAction } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
+import { Star } from "lucide-react"
 import { TAG_COLORS } from "@/lib/tagColors"
 
 type GameCardProps = {
@@ -49,6 +50,17 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
       onUpdate({ ...game, ...updates })
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : t('gameCard.switchTurnError'))
+    }
+  }
+
+  const toggleImportant = async () => {
+    try {
+      const { error } = await supabase.from('games').update({ is_important: !game.is_important }).eq('id', game.id)
+
+      if (error) throw error
+      onUpdate({ ...game, is_important: !game.is_important })
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : t('gameCard.toggleImportantError'))
     }
   }
 
@@ -97,6 +109,11 @@ export function GameCard({game, onDelete, onUpdate}: GameCardProps) {
           <span>x</span>
           <span>{game.other_characters.join(', ')}</span>
         </CardTitle>
+        <CardAction className="-mt-1.75">
+          <Button variant="ghost" size="icon" onClick={toggleImportant}>
+            <Star className={game.is_important ? "fill-current" : ""} />
+          </Button>
+        </CardAction>
         {game.tag && <Badge variant="outline" className={tagColors[game.tag] ? TAG_COLORS[tagColors[game.tag]] : undefined}>{game.tag}</Badge>}
       </CardHeader>
       <CardContent>
