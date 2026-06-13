@@ -9,5 +9,6 @@ export type Game = {
     posts_written_by_me: number
     note: string | null
     finished_at: string | null
+    is_important: boolean
 }
 
