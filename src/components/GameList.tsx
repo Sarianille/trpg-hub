@@ -20,7 +20,10 @@ export function GameList({ filter = 'all' }: GameListProps) {
   const tags = Array.from(new Set(games.map(g => g.tag).filter((t): t is string => !!t)))
   const filteredGames = selectedTags.length > 0 ? games.filter(g => g.tag && selectedTags.includes(g.tag)) : games
 
-  const sortedGames = [...filteredGames].sort((a, b) => new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime())
+  const sortedGames = [...filteredGames].sort((a, b) => {
+    if (a.is_important !== b.is_important) return a.is_important ? -1 : 1
+    return new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime()
+  })
   const gamesWaitingForMe = sortedGames.filter(game => game.is_my_turn)
   const gamesWaitingForOthers = sortedGames.filter(game => !game.is_my_turn)
 
