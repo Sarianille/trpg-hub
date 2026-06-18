@@ -139,6 +139,11 @@ i18n.use(initReactI18next).init({
         title: "Choose tag color",
         clear: "Clear color",
         error: "An error has occurred",
+      },
+      notFound: {
+        title: "Page not found",
+        description: "The page you are looking for does not exist. Are you lost?",
+        goHome: "Back to home"
       }
     }},
     cs : { translation: {
@@ -282,6 +287,11 @@ i18n.use(initReactI18next).init({
         title: "Vybrat barvu tagu",
         clear: "Vymazat barvu",
         error: "Nastala chyba",
+      },
+      notFound: {
+        title: "Stránka nenalezena",
+        description: "Stránka, kterou hledáte, neexistuje. Ztratili jste se?",
+        goHome: "Zpět na hlavní stránku"
       }
     }},
     sk : { translation: {
@@ -425,6 +435,11 @@ i18n.use(initReactI18next).init({
         title: "Vybrať farbu tagu",
         clear: "Vymazať farbu",
         error: "Nastala chyba",
+      },
+      notFound: {
+        title: "Stránka nenájdená",
+        description: "Stránka, ktorú hľadáte, neexistuje. Stratili ste sa?",
+        goHome: "Späť na hlavnú stránku"
       }
     }}
   },
