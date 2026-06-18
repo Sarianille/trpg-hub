@@ -6,6 +6,7 @@ import Login from '@/pages/Login'
 import SignUp from '@/pages/SignUp'
 import ForgotPassword from '@/pages/ForgotPassword'
 import UpdatePassword from '@/pages/UpdatePassword'
+import NotFound from '@/pages/NotFound'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/update-password" element={<UpdatePassword />} />
           <Route path="/" element={<Dashboard />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
