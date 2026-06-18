@@ -1,0 +1,148 @@
+{
+  "logout": "Odhlásiť sa",
+  "login": {
+    "title": "Prihlásenie",
+    "description": "Zadajte svoj email pre prihlásenie",
+    "email": "Email",
+    "emailPlaceholder": "m@priklad.sk",
+    "password": "Heslo",
+    "forgotPassword": "Zabudli ste heslo?",
+    "submit": "Prihlásiť sa",
+    "submitting": "Prihlasovanie...",
+    "noAccount": "Nemáte účet?",
+    "signUp": "Zaregistrovať sa",
+    "error": "Nastala chyba"
+  },
+  "forgotPassword": {
+    "title": "Resetovať heslo",
+    "description": "Zadajte svoj email a pošleme vám odkaz pre resetovanie hesla",
+    "email": "Email",
+    "emailPlaceholder": "m@priklad.sk",
+    "submit": "Poslať email s odkazom",
+    "submitting": "Odosielanie...",
+    "alreadyHaveAccount": "Už máte účet?",
+    "login": "Prihlásiť sa",
+    "error": "Nastala chyba",
+    "successTitle": "Skontrolujte svoj email",
+    "successDescription": "Inštrukcie pre resetovanie hesla boli odoslané",
+    "successMessage": "Ak ste sa zaregistrovali pomocou emailu a hesla, obdržíte email s inštrukciami pre resetovanie hesla."
+  },
+  "updatePassword": {
+    "title": "Resetovať heslo",
+    "description": "Zadajte svoje nové heslo.",
+    "newPassword": "Nové heslo",
+    "newPasswordPlaceholder": "Nové heslo",
+    "submit": "Uložiť nové heslo",
+    "submitting": "Ukladanie...",
+    "error": "Nastala chyba"
+  },
+  "signUp": {
+    "title": "Registrácia",
+    "description": "Vytvoriť nový účet",
+    "email": "Email",
+    "emailPlaceholder": "m@priklad.sk",
+    "password": "Heslo",
+    "repeatPassword": "Zopakujte heslo",
+    "submit": "Zaregistrovať sa",
+    "submitting": "Vytváranie účtu...",
+    "alreadyHaveAccount": "Už máte účet?",
+    "login": "Prihlásiť sa",
+    "passwordsDoNotMatch": "Heslá sa nezhodujú",
+    "error": "Nastala chyba",
+    "successTitle": "Ďakujeme za registráciu!",
+    "successDescription": "Skontrolujte svoj email pre potvrdenie",
+    "successMessage": "Úspešne ste sa zaregistrovali. Prosím skontrolujte svoj email pre potvrdenie účtu pred prihlásením."
+  },
+  "statistics": {
+    "title": "Mesačné štatistiky",
+    "showDetails": "Zobraziť detaily",
+    "hideDetails": "Schovať detaily",
+    "loading": "Načítanie štatistik...",
+    "activeGames_one": "{{count}} aktívna hra",
+    "activeGames_few": "{{count}} aktívne hry",
+    "activeGames_other": "{{count}} aktívnych hier",
+    "finishedGames_one": "{{count}} ukončená hra",
+    "finishedGames_few": "{{count}} ukončené hry",
+    "finishedGames_other": "{{count}} ukončených hier",
+    "postsWritten_one": "{{count}} napísaný príspevok",
+    "postsWritten_few": "{{count}} napísané príspevky",
+    "postsWritten_other": "{{count}} napísaných príspevkov",
+    "waitingForMe_one": "{{count}} hra čakajúca na mňa",
+    "waitingForMe_few": "{{count}} hry čakajúce na mňa",
+    "waitingForMe_other": "{{count}} hier čakajúcich na mňa",
+    "waitingForOthers_one": "{{count}} hra čakajúca na ostatných",
+    "waitingForOthers_few": "{{count}} hry čakajúce na ostatných",
+    "waitingForOthers_other": "{{count}} hier čakajúcich na ostatných",
+    "error": "Nastala chyba"
+  },
+  "addGame": {
+    "title": "Pridať novú hru",
+    "myCharacter": "Môj charakter",
+    "myCharacterPlaceholder": "Jožko Mrkvička",
+    "otherCharacters": "Ostatné charaktery",
+    "otherCharactersPlaceholder": "Janka Mrkvičková, Jožko Púčik",
+    "otherCharactersTooltip": "Viacero charakterov oddeľte čiarkou",
+    "tag": "Tag (nepovinný)",
+    "tagPlaceholder": "Meno stránky",
+    "submit": "Pridať hru",
+    "submitting": "Pridávanie hry...",
+    "otherCharactersRequired": "Vyžaduje sa aspoň jeden charakter",
+    "error": "Chyba pri pridávaní hry. Skúste to prosím znovu."
+  },
+  "gameList": {
+    "yourTurn": "Ste na rade",
+    "waitingForOthers": "Čaká sa na ostatných",
+    "loading": "Načítanie hier...",
+    "noGames": "Ešte nemáte žiadne hry. Pridajte prvú!",
+    "error": "Nastala chyba"
+  },
+  "gameCard": {
+    "addNote": "Pridať poznámku...",
+    "postsWritten": "Počet vašich príspevkov: {{count}}",
+    "lastResponse": "Posledná odpoveď: {{timeAgo}}",
+    "switchTurn": "Napísané",
+    "finishGame": "Ukončiť hru",
+    "deleteError": "Chyba pri mazanie hry. Skúste to prosím znovu.",
+    "switchTurnError": "Chyba pri aktualizácii hry. Skúste to prosím znovu.",
+    "saveNoteError": "Chyba pri ukládaní poznámky. Skúste to prosím znovu."
+  },
+  "feedback": {
+    "trigger": "Spätná väzba",
+    "title": "Odoslať spätnú väzbu",
+    "description": "Vaša spätná väzba nám pomáhá zlepšovať stránku. Zdieľajte svoje myšlienky, návrhy alebo nahláste akékoľvek problémy, na ktoré narazíte.",
+    "typeLabel": "Typ spätné väzby",
+    "bug": "Nahlásenie chyby",
+    "suggestion": "Návrh",
+    "feedback": "Obecná spätná väzba",
+    "messageLabel": "Vaša spätná väzba",
+    "messagePlaceholder": "Napíšte svoju spätnú väzbu tu...",
+    "attachmentsLabel": "Prílohy",
+    "close": "Zatvoriť",
+    "submit": "Odoslať",
+    "submitting": "Odosielanie...",
+    "messageRequired": "Text spätné väzby je povinný.",
+    "error": "Nastala chyba"
+  },
+  "dashboard": {
+    "tabs": {
+      "add": "Pridať hru",
+      "yourTurn": "Na rade",
+      "others": "Čaká sa",
+      "statistics": "Štatistiky"
+    }
+  },
+  "tagFilter": {
+    "title": "Filtrovať podľa tagu",
+    "clear": "Vymazať filtre"
+  },
+  "tagColorManager": {
+    "title": "Vybrať farbu tagu",
+    "clear": "Vymazať farbu",
+    "error": "Nastala chyba"
+  },
+  "notFound": {
+    "title": "Stránka nenájdená",
+    "description": "Stránka, ktorú hľadáte, neexistuje. Stratili ste sa?",
+    "goHome": "Späť na hlavnú stránku"
+  }
+}

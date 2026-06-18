@@ -1,0 +1,143 @@
+{
+  "logout": "Sign Out",
+  "login": {
+    "title": "Login",
+    "description": "Enter your email below to login to your account",
+    "email": "Email",
+    "emailPlaceholder": "m@example.com",
+    "password": "Password",
+    "forgotPassword": "Forgot your password?",
+    "submit": "Login",
+    "submitting": "Logging in...",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "error": "An error occurred"
+  },
+  "forgotPassword": {
+    "title": "Reset Your Password",
+    "description": "Type in your email and we'll send you a link to reset your password",
+    "email": "Email",
+    "emailPlaceholder": "m@example.com",
+    "submit": "Send reset email",
+    "submitting": "Sending...",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Login",
+    "error": "An error occurred",
+    "successTitle": "Check Your Email",
+    "successDescription": "Password reset instructions sent",
+    "successMessage": "If you registered using your email and password, you will receive a password reset email."
+  },
+  "updatePassword": {
+    "title": "Reset Your Password",
+    "description": "Please enter your new password below.",
+    "newPassword": "New password",
+    "newPasswordPlaceholder": "New password",
+    "submit": "Save new password",
+    "submitting": "Saving...",
+    "error": "An error occurred"
+  },
+  "signUp": {
+    "title": "Sign up",
+    "description": "Create a new account",
+    "email": "Email",
+    "emailPlaceholder": "m@example.com",
+    "password": "Password",
+    "repeatPassword": "Repeat Password",
+    "submit": "Sign up",
+    "submitting": "Creating an account...",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Login",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "error": "An error occurred",
+    "successTitle": "Thank you for signing up!",
+    "successDescription": "Check your email to confirm",
+    "successMessage": "You've successfully signed up. Please check your email to confirm your account before signing in."
+  },
+  "statistics": {
+    "title": "Monthly Statistics",
+    "showDetails": "Show details",
+    "hideDetails": "Hide details",
+    "loading": "Loading statistics...",
+    "activeGames_one": "{{count}} active game",
+    "activeGames_other": "{{count}} active games",
+    "finishedGames_one": "{{count}} finished game",
+    "finishedGames_other": "{{count}} finished games",
+    "postsWritten_one": "{{count}} post written",
+    "postsWritten_other": "{{count}} posts written",
+    "waitingForMe_one": "{{count}} game waiting for me",
+    "waitingForMe_other": "{{count}} games waiting for me",
+    "waitingForOthers_one": "{{count}} game waiting for others",
+    "waitingForOthers_other": "{{count}} games waiting for others",
+    "error": "An error occurred"
+  },
+  "addGame": {
+    "title": "Add New Game",
+    "myCharacter": "Your character",
+    "myCharacterPlaceholder": "John Doe",
+    "otherCharacters": "Other characters",
+    "otherCharactersPlaceholder": "Jane Doe, John Roe",
+    "otherCharactersTooltip": "Comma separate multiple characters",
+    "tag": "Tag (optional)",
+    "tagPlaceholder": "Site name",
+    "submit": "Add Game",
+    "submitting": "Adding Game...",
+    "otherCharactersRequired": "At least one character is required",
+    "error": "Error adding game. Please try again."
+  },
+  "gameList": {
+    "yourTurn": "Your turn",
+    "waitingForOthers": "Waiting for others",
+    "loading": "Loading games...",
+    "noGames": "No games yet. Add one!",
+    "error": "An error occurred"
+  },
+  "gameCard": {
+    "addNote": "Add a note...",
+    "postsWritten": "Posts written by you: {{count}}",
+    "lastResponse": "Last response: {{timeAgo}}",
+    "switchTurn": "Switch turn",
+    "finishGame": "Finish game",
+    "deleteError": "Error deleting game. Please try again.",
+    "switchTurnError": "Error switching turn. Please try again.",
+    "saveNoteError": "Error saving note. Please try again."
+  },
+  "feedback": {
+    "trigger": "Feedback",
+    "title": "Submit Feedback",
+    "description": "Your feedback helps us improve. Please share your thoughts, suggestions, or report any issues you encounter.",
+    "typeLabel": "Type of feedback",
+    "bug": "Bug report",
+    "suggestion": "Suggestion",
+    "feedback": "General Feedback",
+    "messageLabel": "Your feedback",
+    "messagePlaceholder": "Write your feedback here...",
+    "attachmentsLabel": "Attachments",
+    "close": "Close",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "messageRequired": "Your feedback message is required.",
+    "error": "An error has occurred"
+  },
+  "dashboard": {
+    "tabs": {
+      "add": "Add Game",
+      "yourTurn": "Your Turn",
+      "others": "Waiting",
+      "statistics": "Stats"
+    }
+  },
+  "tagFilter": {
+    "title": "Filter by tag",
+    "clear": "Clear filters"
+  },
+  "tagColorManager": {
+    "title": "Choose tag color",
+    "clear": "Clear color",
+    "error": "An error has occurred"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist. Are you lost?",
+    "goHome": "Back to home"
+  }
+}
