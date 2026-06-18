@@ -34,6 +34,7 @@ export function GamesProvider({ children }: { children: ReactNode }) {
     const fetchGames = async () => {
       try {
         setError(null)
+        // We don't need to filter by user_id because the RLS policy in Supabase does that for us
         const { data, error } = await supabase.from('games').select('*')
 
         if (error) throw error
