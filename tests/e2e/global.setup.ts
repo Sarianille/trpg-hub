@@ -5,7 +5,7 @@ const authFile = 'tests/e2e/.auth/user.json'
 
 setup('authenticate', async({ page, context }) => {
   // Avoid hitting Supabase
-  await context.route('**/auth/v1/token/**', route => route.fulfill({json: fakeSession()}))
+  await context.route('**/auth/v1/token**', route => route.fulfill({json: fakeSession()}))
 
   await page.goto('/login')
   await page.getByLabel('Email').fill('test@example.com')
