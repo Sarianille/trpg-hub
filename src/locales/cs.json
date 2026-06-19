@@ -104,7 +104,8 @@
     "finishGame": "Ukončit hru",
     "deleteError": "Chyba při mazání hry. Zkuste to prosím znovu.",
     "switchTurnError": "Chyba při aktualizaci hry. Zkuste to prosím znovu.",
-    "saveNoteError": "Chyba při ukládání poznámky. Zkuste to prosím znovu."
+    "saveNoteError": "Chyba při ukládání poznámky. Zkuste to prosím znovu.",
+    "toggleImportantError": "Chyba při nastavení důležitosti hry. Zkuste to prosím znovu."
   },
   "feedback": {
     "trigger": "Zpětná vazba",

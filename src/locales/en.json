@@ -99,7 +99,8 @@
     "finishGame": "Finish game",
     "deleteError": "Error deleting game. Please try again.",
     "switchTurnError": "Error switching turn. Please try again.",
-    "saveNoteError": "Error saving note. Please try again."
+    "saveNoteError": "Error saving note. Please try again.",
+    "toggleImportantError": "Error making the game important. Please try again."
   },
   "feedback": {
     "trigger": "Feedback",
