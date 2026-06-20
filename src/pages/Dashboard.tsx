@@ -20,7 +20,7 @@ export default function Dashboard() {
       <GamesProvider>
         <div className="py-8 px-4">
           {/* Mobile */}
-          <div className="md:hidden">
+          <div className="md:hidden" data-testid="layout-mobile">
             <Tabs defaultValue="yourTurn" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="add">{t('dashboard.tabs.add')}</TabsTrigger>
@@ -44,7 +44,7 @@ export default function Dashboard() {
           </div>
           
           {/* Desktop */}
-          <div className="hidden md:flex flex-row items-start gap-6">
+          <div className="hidden md:flex flex-row items-start gap-6" data-testid="layout-desktop">
             <AddGameForm />
             <GameList />
             <Statistics />
