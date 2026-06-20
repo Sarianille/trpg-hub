@@ -1,8 +1,4 @@
 SET check_function_bodies = false;
-DROP EXTENSION pg_net;
-DROP EXTENSION pg_graphql;
-CREATE ROLE supabase_privileged_role;
-GRANT supabase_privileged_role TO postgres;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT DELETE, INSERT, SELECT, UPDATE ON TABLES TO anon;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT, USAGE ON SEQUENCES TO anon;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON ROUTINES TO anon;
