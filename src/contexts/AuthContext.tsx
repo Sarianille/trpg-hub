@@ -18,8 +18,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let cancelled = false
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (cancelled) return
+
+      if (session) {
+        const { error } = await supabase.auth.getUser()
+        if (error) {
+          await supabase.auth.signOut()
+          if (!cancelled) {
+            setSession(null)
+            setIsChecking(false)
+          }
+          return
+        }
+      }
+
       setSession(session)
       setIsChecking(false)
     })
