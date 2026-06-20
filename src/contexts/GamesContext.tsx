@@ -51,6 +51,11 @@ export function GamesProvider({ children }: { children: ReactNode }) {
       try {
         await fetchGames()
 
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session?.access_token) {
+          await supabase.realtime.setAuth(session.access_token)
+        }
+
         subscription = supabase
           .channel('games-global')
           .on('postgres_changes', { event: '*', schema: 'public', table: 'games' }, () => fetchGames())
