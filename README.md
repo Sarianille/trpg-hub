@@ -30,29 +30,38 @@ Juggling multiple simultaneous roleplay threads across different sites makes it 
 
 ## Getting Started
 
-> **Note:** This is a personal project and running it locally requires setting up a Supabase project with a specific database schema, row-level security policies, and edge functions. The setup steps below cover the frontend only.
-
 ### Prerequisites
 - Node.js (v18 or later)
-- Supabase account and project
+- Docker (runs the local Supabase stack)
 
 ### Installation
 ```bash
 npm install
 ```
 
+### Start Backend
+```bash
+npx supabase start
+```
+This will boot a full local Supabase stack (Postgres, auth, realtime, edge functions) in Docker and apply the DB schema, RLS policies, etc. from \`supabase/migrations\`. The first run may take a few minutes. Upon finishing, it prints the local API URL and anon key.
+
 ### Environment Variables
 Create a `.env` file in the root of the project and add the following variables:
 ```env
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+VITE_SUPABASE_URL=http://localhost:54321
+VITE_SUPABASE_PUBLISHABLE_KEY=<anon key printed by supabase start>
 VITE_SITE_URL=http://localhost:5173
 ```
 
-### Running the Application Locally
+### Run App
 ```bash
 npm run dev
 ```
+Email confirmation is disabled locally, so you can sign up and log in immediately.
+
+### Handy Commands
+- \`npx supabase stop\` - stop the local stack
+- \`npx supabase db reset\` - wipe and reapply migrations
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
